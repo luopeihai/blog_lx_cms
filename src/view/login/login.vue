@@ -13,7 +13,7 @@
           <input type="password" v-model="account.password" autocomplete="off" placeholder="请填写用户登录密码" />
         </div>
         <div class="form-item password" v-if="captchaImage">
-          <img class="captcha" :src="captchaImage" />
+          <img class="captcha" :src="captchaImage" @click="getCaptcha" />
           <input type="password" v-model="account.captcha" autocomplete="off" placeholder="请填写验证码" />
         </div>
         <button class="submit-btn" type="submit">登录</button>
@@ -69,19 +69,6 @@ export default {
     }
 
     /**
-     * 获取图形验证码
-     */
-    const getCaptcha = async () => {
-      axios({
-        method: 'POST',
-        url: 'cms/user/captcha',
-      }).then(result => {
-        ;({ tag } = result)
-        captchaImage.value = result.image
-      })
-    }
-
-    /**
      * 获取并更新当前管理员信息
      */
     const getInformation = async () => {
@@ -103,11 +90,25 @@ export default {
       throttleLogin.value = Utils.throttle(login, wait)
     })
 
+    /**
+     * 获取图形验证码
+     */
+    const getCaptcha = async () => {
+      axios({
+        method: 'POST',
+        url: 'cms/user/captcha',
+      }).then(result => {
+        ;({ tag } = result)
+        captchaImage.value = result.image
+      })
+    }
+
     return {
       account,
       loading,
       captchaImage,
       throttleLogin,
+      getCaptcha,
     }
   },
 }
