@@ -18,7 +18,7 @@ const workRouter = {
       icon: 'iconfont icon-tushuguanli',
     },
     {
-      title: '作品图书',
+      title: '作品添加',
       type: 'view',
       name: 'WorkCreate',
       route: '/work/add',

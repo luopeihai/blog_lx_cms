@@ -56,7 +56,6 @@ export default {
       try {
         loading.value = true
         works.value = await workModel.getWorks()
-        console.log('works', works.value)
         loading.value = false
       } catch (error) {
         loading.value = false

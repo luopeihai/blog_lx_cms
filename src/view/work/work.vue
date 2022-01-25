@@ -1,30 +1,31 @@
 <template>
   <div class="container">
-    <div class="title" v-if="!editBookId">新建图书{{ editBookId }}</div>
+    <div class="title" v-if="!editId">新建作品{{ editId }}</div>
     <div class="title" v-else>
-      <span>修改图书</span> <span class="back" @click="back"> <i class="iconfont icon-fanhui"></i> 返回 </span>
+      <span>修改作品</span> <span class="back" @click="back"> <i class="iconfont icon-fanhui"></i> 返回 </span>
     </div>
 
     <div class="wrap">
       <el-row>
         <el-col :lg="16" :md="20" :sm="24" :xs="24">
-          <el-form :model="book" status-icon ref="form" label-width="100px" @submit.prevent :rules="rules">
-            <el-form-item label="书名" prop="title">
-              <el-input size="medium" v-model="book.title" placeholder="请填写书名"></el-input>
+          <el-form :model="work" status-icon ref="form" label-width="100px" @submit.prevent :rules="rules">
+            <el-form-item label="标题" prop="title">
+              <el-input size="medium" v-model="work.title" placeholder="请填写标题"></el-input>
             </el-form-item>
-            <el-form-item label="作者" prop="author">
-              <el-input size="medium" v-model="book.author" placeholder="请填写作者"></el-input>
+            <el-form-item label="描述" prop="description">
+              <el-input size="medium" v-model="work.description" placeholder="请填写描述"></el-input>
             </el-form-item>
-            <el-form-item label="封面" prop="image">
-              <el-input size="medium" v-model="book.image" placeholder="请填写封面地址"></el-input>
+            <el-form-item label="封面" prop="cover">
+              <upload-imgs ref="coverEle" :rules="coverEleRules" :value="coverEleInitData" :multiple="true" />
+              <el-input type="hidden" v-model="work.cover" placeholder="请填写描述" />
             </el-form-item>
-            <el-form-item label="简介" prop="summary">
+            <el-form-item label="简介" prop="textMd">
               <el-input
                 size="medium"
                 type="textarea"
                 :autosize="{ minRows: 4, maxRows: 8 }"
                 placeholder="请输入简介"
-                v-model="book.summary"
+                v-model="work.textMd"
               >
               </el-input>
             </el-form-item>
@@ -43,19 +44,24 @@
 <script>
 import { reactive, ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
-import bookModel from '@/model/book'
+import workModel from '@/model/work'
+import UploadImgs from '@/component/base/upload-image'
 
 export default {
+  components: {
+    UploadImgs,
+  },
   props: {
-    editBookId: {
+    editId: {
       type: Number,
       default: null,
     },
   },
   setup(props, context) {
+    const coverEle = ref(null)
     const form = ref(null)
     const loading = ref(false)
-    const book = reactive({ title: '', author: '', summary: '', image: '' })
+    const work = reactive({ title: '', author: '', textMd: '', cover: '' })
 
     const listAssign = (a, b) => Object.keys(a).forEach(key => {
       a[key] = b[key] || a[key]
@@ -67,15 +73,22 @@ export default {
     const { rules } = getRules()
 
     onMounted(() => {
-      if (props.editBookId) {
-        getBook()
+      if (props.editId) {
+        getWork()
       }
     })
 
-    const getBook = async () => {
+    const coverEleInitData = []
+    const coverEleRules = {
+      maxSize: 5,
+      minWidth: 100,
+      minHeight: 100,
+    }
+
+    const getWork = async () => {
       loading.value = true
-      const res = await bookModel.getBook(props.editBookId)
-      listAssign(book, res)
+      const res = await workModel.getWork(props.editId)
+      listAssign(work, res)
       loading.value = false
     }
 
@@ -85,14 +98,23 @@ export default {
     }
 
     const submitForm = async formName => {
+      if (coverEle.value) {
+        const img = await coverEle.value.getValue()
+        if (Array.isArray(img)) {
+          work.cover = img.map(item => item.display).join(',')
+        }
+      }
+
       form.value.validate(async valid => {
         if (valid) {
           let res = {}
-          if (props.editBookId) {
-            res = await bookModel.editBook(props.editBookId, book)
+
+          if (props.editId) {
+            res = await workModel.editWork(props.editId, work)
             context.emit('editClose')
           } else {
-            res = await bookModel.createBook(book)
+            console.log('work', work)
+            res = await workModel.createWork(work)
             resetForm(formName)
           }
           if (res.code < window.MAX_SUCCESS_CODE) {
@@ -111,11 +133,14 @@ export default {
 
     return {
       back,
-      book,
+      work,
       form,
       rules,
       resetForm,
       submitForm,
+      coverEle,
+      coverEleInitData,
+      coverEleRules,
     }
   },
 }
@@ -136,8 +161,8 @@ function getRules() {
   const rules = {
     title: [{ validator: checkInfo, trigger: 'blur', required: true }],
     author: [{ validator: checkInfo, trigger: 'blur', required: true }],
-    summary: [{ validator: checkInfo, trigger: 'blur', required: true }],
-    image: [{ validator: checkInfo, trigger: 'blur', required: true }],
+    textMd: [{ validator: checkInfo, trigger: 'blur', required: true }],
+    cover: [{ validator: checkInfo, trigger: 'blur', required: true }],
   }
   return { rules }
 }
