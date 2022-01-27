@@ -16,18 +16,15 @@
               <el-input size="medium" v-model="work.description" placeholder="请填写描述"></el-input>
             </el-form-item>
             <el-form-item label="封面" prop="cover">
-              <upload-imgs ref="coverEle" :rules="coverEleRules" :value="coverEleInitData" :multiple="true" />
+              <upload-imgs
+                ref="coverEle"
+                max-num="1"
+                preview="true"
+                :rules="coverEleRules"
+                :value="coverEleInitData"
+                :multiple="true"
+              />
               <el-input type="hidden" v-model="work.cover" placeholder="请填写描述" />
-            </el-form-item>
-            <el-form-item label="简介" prop="textMd">
-              <el-input
-                size="medium"
-                type="textarea"
-                :autosize="{ minRows: 4, maxRows: 8 }"
-                placeholder="请输入简介"
-                v-model="work.textMd"
-              >
-              </el-input>
             </el-form-item>
 
             <el-form-item class="submit">
@@ -61,7 +58,13 @@ export default {
     const coverEle = ref(null)
     const form = ref(null)
     const loading = ref(false)
-    const work = reactive({ title: '', author: '', textMd: '', cover: '' })
+    const work = reactive({ title: '', description: '', cover: '' })
+    const coverEleInitData = ref([])
+    const coverEleRules = {
+      // maxSize: 5,
+      // minWidth: 100,
+      // minHeight: 100,
+    }
 
     const listAssign = (a, b) => Object.keys(a).forEach(key => {
       a[key] = b[key] || a[key]
@@ -78,17 +81,13 @@ export default {
       }
     })
 
-    const coverEleInitData = []
-    const coverEleRules = {
-      maxSize: 5,
-      minWidth: 100,
-      minHeight: 100,
-    }
-
     const getWork = async () => {
       loading.value = true
       const res = await workModel.getWork(props.editId)
       listAssign(work, res)
+      if (res.cover) {
+        coverEleInitData.value = [{ display: res.cover }]
+      }
       loading.value = false
     }
 
@@ -113,7 +112,6 @@ export default {
             res = await workModel.editWork(props.editId, work)
             context.emit('editClose')
           } else {
-            console.log('work', work)
             res = await workModel.createWork(work)
             resetForm(formName)
           }
@@ -160,8 +158,7 @@ function getRules() {
   }
   const rules = {
     title: [{ validator: checkInfo, trigger: 'blur', required: true }],
-    author: [{ validator: checkInfo, trigger: 'blur', required: true }],
-    textMd: [{ validator: checkInfo, trigger: 'blur', required: true }],
+    description: [{ validator: checkInfo, trigger: 'blur', required: true }],
     cover: [{ validator: checkInfo, trigger: 'blur', required: true }],
   }
   return { rules }

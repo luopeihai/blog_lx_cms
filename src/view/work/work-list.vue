@@ -6,11 +6,15 @@
         <div class="title">作品列表</div>
       </div>
       <!-- 表格 -->
-      <el-table :data="works" v-loading="loading">
-        <el-table-column type="index" :index="indexMethod" label="序号"></el-table-column>
-        <el-table-column prop="title" label="封面"></el-table-column>
-        <el-table-column prop="author" label="标题"></el-table-column>
-        <el-table-column prop="author" label="描述"></el-table-column>
+      <el-table :data="works" stripe v-loading="loading">
+        <el-table-column prop="id" :index="indexMethod" label="id"></el-table-column>
+        <el-table-column prop="title" label="标题"></el-table-column>
+        <el-table-column min-width="55" prop="cover" label="封面">
+          <template #default="scope">
+            <img :src="scope.row.cover" />
+          </template>
+        </el-table-column>
+        <el-table-column prop="description" label="描述"></el-table-column>
         <el-table-column label="操作" fixed="right" width="275">
           <template #default="scope">
             <el-button plain size="mini" type="primary" @click="handleEdit(scope.row.id)">编辑</el-button>

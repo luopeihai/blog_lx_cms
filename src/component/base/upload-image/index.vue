@@ -967,7 +967,7 @@ export default {
     initItemList(val) {
       const { max, isStable, disabled } = this
       const result = []
-
+      console.log('val', val)
       // 初始值不存在情况
       // 包括初始值不合法
       if (!val || !Array.isArray(val) || val.length === 0) {
