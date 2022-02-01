@@ -476,15 +476,15 @@ export default {
             throw new Error('图像上传失败')
           }
 
-          const resObj = res.reduce((acc, item) => {
-            acc[item.key] = item
-            return acc
-          }, {})
+          // const resObj = res.reduce((acc, item) => {
+          //   acc[item.key] = item
+          //   return acc
+          // }, {})
 
-          uploadList.forEach((item, index) => {
-            const remoteData = resObj[`file_${index}`]
-            item.cb(remoteData)
-          })
+          // uploadList.forEach((item, index) => {
+          //   const remoteData = resObj[`file_${index}`]
+          //   item.cb(remoteData)
+          // })
         })
         .catch(err => {
           uploadList.forEach(item => {
@@ -561,6 +561,7 @@ export default {
       if (item.status === 'input' || !item.file) {
         return
       }
+
       // eslint-disable-next-line
       item.loading = true
       if (this.beforeUpload && typeof this.beforeUpload === 'function') {
@@ -591,6 +592,7 @@ export default {
           }
         }
       }
+
       // 如果是用户自定义方法
       // 出于简化 api 的考虑, 只允许单个文件上传, 不进行代理
       if (this.remoteFuc && typeof this.remoteFuc === 'function') {
@@ -874,6 +876,7 @@ export default {
       }
       try {
         imgInfoList = await Promise.all(asyncList)
+
         // 设置图片信息
         this.setImgInfo(imgInfoList, currentId)
         // 开启自动上传
@@ -883,6 +886,7 @@ export default {
           })
         }
       } catch (err) {
+        debugger
         // 清空缓存
         for (let i = 0; i < cache.length; i += 1) {
           window.URL.revokeObjectURL(cache[i].localSrc)
@@ -901,6 +905,7 @@ export default {
      */
     setImgInfo(imgInfoList = [], currentId) {
       const { max, itemList } = this
+
       // 找到特定图像位置
       const index = this.itemList.findIndex(item => item.id === currentId)
       // 释放内存
@@ -967,7 +972,6 @@ export default {
     initItemList(val) {
       const { max, isStable, disabled } = this
       const result = []
-      console.log('val', val)
       // 初始值不存在情况
       // 包括初始值不合法
       if (!val || !Array.isArray(val) || val.length === 0) {

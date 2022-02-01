@@ -244,4 +244,18 @@ export function getScrollBarSize(fresh) {
   return cached
 }
 
+/**
+ * 获取ele 图片
+ */
+
+Utils.getImages = async imageEle => {
+  if (imageEle && imageEle.value) {
+    const img = await imageEle.value.getValue()
+    if (Array.isArray(img)) {
+      return img.map(item => item.display).join(',')
+    }
+  }
+  return null
+}
+
 export default Utils

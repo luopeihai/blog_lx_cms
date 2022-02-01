@@ -8,23 +8,28 @@
     <div class="wrap">
       <el-row>
         <el-col :lg="16" :md="20" :sm="24" :xs="24">
-          <el-form :model="work" status-icon ref="form" label-width="100px" @submit.prevent :rules="rules">
-            <el-form-item label="标题" prop="title">
+          <el-form :model="work" status-icon ref="form" label-width="150px" @submit.prevent :rules="rules">
+            <el-form-item label="标题" min-width="100" prop="title">
               <el-input size="medium" v-model="work.title" placeholder="请填写标题"></el-input>
             </el-form-item>
             <el-form-item label="描述" prop="description">
               <el-input size="medium" v-model="work.description" placeholder="请填写描述"></el-input>
             </el-form-item>
-            <el-form-item label="封面" prop="cover">
+            <el-form-item label="封面(数量=1)" prop="cover">
+              <upload-imgs ref="coverEle" :max-num="1" :preview="true" :value="coverEleInitData" :multiple="false" />
+              <el-input type="hidden" v-model="work.cover" />
+            </el-form-item>
+            <el-form-item label="作品图片(数量<30)" prop="pics">
               <upload-imgs
-                ref="coverEle"
-                max-num="1"
-                preview="true"
-                :rules="coverEleRules"
-                :value="coverEleInitData"
+                ref="picsEle"
+                :min-num="1"
+                :max-num="30"
+                :preview="true"
+                :value="picsEleInitData"
                 :multiple="true"
+                :sortable="true"
               />
-              <el-input type="hidden" v-model="work.cover" placeholder="请填写描述" />
+              <el-input type="hidden" v-model="work.pics" />
             </el-form-item>
 
             <el-form-item class="submit">
@@ -43,6 +48,7 @@ import { reactive, ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import workModel from '@/model/work'
 import UploadImgs from '@/component/base/upload-image'
+import Utils from '@/lin/util/util'
 
 export default {
   components: {
@@ -55,16 +61,17 @@ export default {
     },
   },
   setup(props, context) {
+    // 封面图片
     const coverEle = ref(null)
+    const coverEleInitData = ref([])
+
+    // 作品图
+    const picsEle = ref(null)
+    const picsEleInitData = ref([])
+
     const form = ref(null)
     const loading = ref(false)
-    const work = reactive({ title: '', description: '', cover: '' })
-    const coverEleInitData = ref([])
-    const coverEleRules = {
-      // maxSize: 5,
-      // minWidth: 100,
-      // minHeight: 100,
-    }
+    const work = reactive({ title: '', description: '', cover: '', pics: '' })
 
     const listAssign = (a, b) => Object.keys(a).forEach(key => {
       a[key] = b[key] || a[key]
@@ -85,8 +92,15 @@ export default {
       loading.value = true
       const res = await workModel.getWork(props.editId)
       listAssign(work, res)
+
       if (res.cover) {
         coverEleInitData.value = [{ display: res.cover }]
+      }
+
+      if (res.pics) {
+        picsEleInitData.value = res.pics.split(',').map(item => ({
+          display: item,
+        }))
       }
       loading.value = false
     }
@@ -97,12 +111,11 @@ export default {
     }
 
     const submitForm = async formName => {
-      if (coverEle.value) {
-        const img = await coverEle.value.getValue()
-        if (Array.isArray(img)) {
-          work.cover = img.map(item => item.display).join(',')
-        }
-      }
+      // 有封面图
+      work.cover = await Utils.getImages(coverEle)
+
+      // 作品图
+      work.pics = await Utils.getImages(picsEle)
 
       form.value.validate(async valid => {
         if (valid) {
@@ -138,7 +151,8 @@ export default {
       submitForm,
       coverEle,
       coverEleInitData,
-      coverEleRules,
+      picsEle,
+      picsEleInitData,
     }
   },
 }
@@ -160,6 +174,7 @@ function getRules() {
     title: [{ validator: checkInfo, trigger: 'blur', required: true }],
     description: [{ validator: checkInfo, trigger: 'blur', required: true }],
     cover: [{ validator: checkInfo, trigger: 'blur', required: true }],
+    pics: [{ validator: checkInfo, trigger: 'blur', required: true }],
   }
   return { rules }
 }
