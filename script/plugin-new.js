@@ -131,7 +131,10 @@ inquirer
           const viewConfig = {}
           viewConfig.icon = 'iconfont icon-demo'
           viewConfig.name = fileConfig.camelCaseName + item.name.slice(0, -8)
-          viewConfig.route = path.join(config.name, path.relative(pluginViewsPath, item.path)).split(path.sep).join('/')
+          viewConfig.route = path
+            .join(config.name, path.relative(pluginViewsPath, item.path))
+            .split(path.sep)
+            .join('/')
           viewConfig.route = `/${viewConfig.route.slice(0, -8)}`
           viewConfig.order = null
           viewConfig.inNav = true

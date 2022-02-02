@@ -2,7 +2,7 @@
   <div class="lin-container">
     <div class="lin-title">Pagination 分页</div>
     <div class="lin-wrap-ui">
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>基础用法</span></div>
         <el-row>
           <div>
@@ -18,44 +18,44 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>设置最大页码按钮数</span></div>
         <el-row>
           <el-pagination :page-size="20" :pager-count="11" layout="prev, pager, next" :total="1000"> </el-pagination>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ pageCount }}</div>
+            <div style="white-space: pre-wrap;">{{ pageCount }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>带有背景色的分页</span></div>
         <el-row>
           <div><el-pagination background layout="prev, pager, next" :total="1000"> </el-pagination></div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ background }}</div>
+            <div style="white-space: pre-wrap;">{{ background }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>小型分页</span></div>
         <el-row> <el-pagination small layout="prev, pager, next" :total="50"> </el-pagination> </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ small }}</div>
+            <div style="white-space: pre-wrap;">{{ small }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>附加功能</span></div>
         <el-row>
           <div class="block">
@@ -63,7 +63,7 @@
             <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
-              v-model:current-page="currentPage1"
+              :current-page.sync="currentPage1"
               :page-size="100"
               layout="total, prev, pager, next"
               :total="1000"
@@ -75,7 +75,7 @@
             <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
-              v-model:current-page="currentPage2"
+              :current-page.sync="currentPage2"
               :page-sizes="[100, 200, 300, 400]"
               :page-size="100"
               layout="sizes, prev, pager, next"
@@ -88,7 +88,7 @@
             <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
-              v-model:current-page="currentPage3"
+              :current-page.sync="currentPage3"
               :page-size="100"
               layout="prev, pager, next, jumper"
               :total="1000"
@@ -111,12 +111,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ methodsCode }}</div>
+            <div style="white-space: pre-wrap;">{{ methodsCode }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>当只有一页时隐藏分页</span></div>
         <el-row>
           <div>
@@ -126,7 +126,7 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ hideOnSinglePage }}</div>
+            <div style="white-space: pre-wrap;">{{ hideOnSinglePage }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>

@@ -1,26 +1,29 @@
 <template>
-  <el-config-provider :locale="locale">
-    <div id="app">
-      <router-view />
-    </div>
-  </el-config-provider>
+  <div id="app"><router-view /></div>
 </template>
 
 <script>
-import { ElConfigProvider } from 'element-plus'
-import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+import { mapActions } from 'vuex'
+import Vue from 'vue'
 
 export default {
-  components: {
-    [ElConfigProvider.name]: ElConfigProvider,
-  },
   data() {
     return {
-      locale: zhCn,
+      timer: null,
+      eventBus: new Vue(),
     }
   },
   mounted() {
     document.getElementById('loader').style.display = 'none'
+  },
+  provide() {
+    // eventBus挂载的事件： addGroup addUser
+    return {
+      eventBus: this.eventBus,
+    }
+  },
+  methods: {
+    ...mapActions(['loginOut']),
   },
 }
 </script>

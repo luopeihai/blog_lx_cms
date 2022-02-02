@@ -1,12 +1,13 @@
 import * as types from './mutation-type'
 
 export default {
-  [types.SET_LOGGED_IN](state) {
-    state.loggedIn = true
+  [types.SET_LOGINED](state) {
+    /* eslint no-param-reassign: 0 */
+    state.logined = true
   },
 
-  [types.REMOVE_LOGGED_IN](state) {
-    state.loggedIn = false
+  [types.REMOVE_LOGINED](state) {
+    state.logined = false
     state.user = null
   },
 
@@ -14,11 +15,11 @@ export default {
     state.user = payload
   },
 
-  [types.MARK_READ_MESSAGE](state, payload) {
-    state.alreadyReadMessages.push(payload)
+  [types.ADD_READED_MESSAGE](state, payload) {
+    state.readedMessages.push(payload)
   },
 
-  [types.MARK_UNREAD_MESSAGE](state, payload) {
+  [types.ADD_UNREAD_MESSAGE](state, payload) {
     // console.log('===:  ', payload)
     state.unreadMessages.push(payload)
   },
@@ -31,13 +32,19 @@ export default {
   },
 
   [types.SET_USER_PERMISSIONS](state, permissions) {
-    state.permissions = permissions
-      .map(permission => Object.values(permission))
-      .flat(2)
-      .map(p => p.permission)
+    const _permissions = []
+    for (let i = 0; i < permissions.length; i++) {
+      for (const key in permissions[i]) {
+        // console.log(i, state.user.permissions[i][key])
+        for (let j = 0; j < permissions[i][key].length; j++) {
+          _permissions.push(permissions[i][key][j].permission)
+        }
+      }
+    }
+    state.permissions = _permissions
   },
 
-  [types.SET_REFRESH_OPTION](state, option) {
+  [types.SET_REFERSH_OPTION](state, option) {
     state.refreshOptions = option
   },
 }

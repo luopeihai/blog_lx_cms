@@ -4,7 +4,7 @@
       <ul class="menu-tab">
         <router-link :to="tab.path" v-for="tab in menuTabs" :key="tab.path" ref="menuTabs">
           <li ref="tabList" class="menu-li">
-            <i :class="tab.icon" /> <span class="title">{{ $filters.filterTitle(tab.title) }}</span>
+            <i :class="tab.icon" /> <span class="title">{{ tab.title | filterTitle }}</span>
           </li>
         </router-link>
       </ul>
@@ -66,7 +66,7 @@ export default {
 
   .router-link-exact-active,
   .router-link-active {
-    background: $app-main-background;
+    background: $appmain-background;
     color: $theme;
   }
 

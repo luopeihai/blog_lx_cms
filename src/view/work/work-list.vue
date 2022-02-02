@@ -2,28 +2,25 @@
   <div>
     <!-- 列表页面 -->
     <div class="container" v-if="!showEdit">
-      <div class="header">
-        <div class="title">作品列表</div>
-      </div>
+      <div class="header"><div class="title">作品列表</div></div>
       <!-- 表格 -->
-      <el-table :data="works" stripe v-loading="loading">
-        <el-table-column prop="id" :index="indexMethod" label="id"></el-table-column>
-        <el-table-column prop="title" label="标题"></el-table-column>
-        <el-table-column min-width="55" prop="cover" label="封面">
-          <template #default="scope">
-            <img :src="scope.row.cover" />
+      <el-table stripe v-loading="loading" :data="tableData">
+        <el-table-column prop="id" label="id" width="100"></el-table-column>
+        <el-table-column :show-overflow-tooltip="true" prop="title" label="标题" width="150"></el-table-column>
+        <el-table-column width="100" prop="cover" label="封面图">
+          <template v-if="scope.row.cover" slot-scope="scope">
+            <img class="display_img" :src="scope.row.cover" :alt="scope.row.cover" />
           </template>
         </el-table-column>
-        <el-table-column prop="description" label="描述"></el-table-column>
-        <el-table-column label="操作" fixed="right" width="275">
-          <template #default="scope">
-            <el-button plain size="mini" type="primary" @click="handleEdit(scope.row.id)">编辑</el-button>
+        <el-table-column fixed="right" width="150" label="操作">
+          <template slot-scope="scope">
+            <el-button @click.prevent="handleEdit(scope.row)" type="primary" plain size="mini">编辑</el-button>
             <el-button
-              plain
-              size="mini"
+              v-permission="{ permission: ['删除活动'], type: 'disabled' }"
+              @click.prevent="handleDelete(scope.row)"
               type="danger"
-              @click="handleDelete(scope.row.id)"
-              v-permission="{ permission: '删除图书', type: 'disabled' }"
+              size="mini"
+              plain
               >删除</el-button
             >
           </template>
@@ -32,79 +29,67 @@
     </div>
 
     <!-- 编辑页面 -->
-    <work-modify v-else @editClose="editClose" :editId="editId"></work-modify>
+    <work-modify v-else @editClose="editClose" :editID="editID"></work-modify>
   </div>
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
-import { ElMessageBox, ElMessage } from 'element-plus'
-import workModel from '@/model/work'
-import WorkModify from './work'
+import work from '@/model/work'
+import WorkModify from './work-modify'
 
 export default {
   components: {
     WorkModify,
   },
-  setup() {
-    const works = ref([])
-    const editId = ref(1)
-    const loading = ref(false)
-    const showEdit = ref(false)
-
-    onMounted(() => {
-      getWorks()
-    })
-
-    const getWorks = async () => {
+  data() {
+    return {
+      tableData: [],
+      showEdit: false,
+      editID: 1,
+      loading: true,
+    }
+  },
+  async created() {
+    this.loading = true
+    await this.getWorks()
+    this.loading = false
+  },
+  methods: {
+    async getWorks() {
       try {
-        loading.value = true
-        works.value = await workModel.getWorks()
-        loading.value = false
+        const works = await work.getWorks()
+        this.tableData = works
       } catch (error) {
-        loading.value = false
         if (error.code === 10020) {
-          works.value = []
+          this.tableData = []
         }
       }
-    }
-
-    const handleEdit = id => {
-      showEdit.value = true
-      editId.value = id
-    }
-
-    const handleDelete = id => {
-      ElMessageBox.confirm('此操作将永久删除该图书, 是否继续?', '提示', {
+    },
+    handleEdit(val) {
+      this.showEdit = true
+      this.editID = val.id
+    },
+    handleDelete(val) {
+      this.$confirm('此操作将永久删除该图书, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(async () => {
-        const res = await workModel.deleteWork(id)
+        const res = await work.deleteBook(val.row.id)
         if (res.code < window.MAX_SUCCESS_CODE) {
-          getWorks()
-          ElMessage.success(`${res.message}`)
+          this.getWorks()
+          this.$message({
+            type: 'success',
+            message: `${res.message}`,
+          })
         }
       })
-    }
-
-    const editClose = () => {
-      showEdit.value = false
-      getWorks()
-    }
-
-    const indexMethod = index => index + 1
-
-    return {
-      works,
-      loading,
-      showEdit,
-      editClose,
-      handleEdit,
-      editId,
-      indexMethod,
-      handleDelete,
-    }
+    },
+    rowClick() {},
+    editClose() {
+      this.showEdit = false
+      this.getWorks()
+    },
   },
 }
 </script>

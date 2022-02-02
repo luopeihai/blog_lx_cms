@@ -6,15 +6,15 @@
       <form class="login-form" autocomplete="off" @submit.prevent="throttleLogin()">
         <div class="form-item nickname">
           <span class="icon account-icon"></span>
-          <input type="text" v-model="account.username" autocomplete="off" placeholder="请填写用户名" />
+          <input type="text" v-model="form.username" autocomplete="off" placeholder="请填写用户名" />
         </div>
         <div class="form-item password">
           <span class="icon secret-icon"></span>
-          <input type="password" v-model="account.password" autocomplete="off" placeholder="请填写用户登录密码" />
+          <input type="password" v-model="form.password" autocomplete="off" placeholder="请填写用户登录密码" />
         </div>
         <div class="form-item password" v-if="captchaImage">
           <img class="captcha" :src="captchaImage" @click="getCaptcha" />
-          <input type="password" v-model="account.captcha" autocomplete="off" placeholder="请填写验证码" />
+          <input type="password" v-model="form.captcha" autocomplete="off" placeholder="请填写验证码" />
         </div>
         <button class="submit-btn" type="submit">登录</button>
       </form>
@@ -23,94 +23,71 @@
 </template>
 
 <script>
-import { reactive, ref, onMounted, getCurrentInstance } from 'vue'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
-import axios from 'lin/plugin/axios'
-import UserModel from '@/lin/model/user'
+import { mapActions, mapMutations } from 'vuex'
+import User from '@/lin/model/user'
 import Utils from '@/lin/util/util'
-import Config from '@/config'
+import axios from 'lin/plugin/axios'
 
 export default {
-  setup() {
-    let tag = ''
-    const wait = 2000 // 2000ms之内不能重复发起请求
-    const loading = ref(false)
-    const captchaImage = ref('')
-    const store = useStore()
-    const router = useRouter()
-    const throttleLogin = ref(null)
-    const { ctx } = getCurrentInstance()
-
-    const account = reactive({
-      username: '',
-      password: '',
-      captcha: '',
-    })
-
-    /**
-     * 根据账号密码登录，拿到 token 并储存
-     */
-    const login = async () => {
-      const { username, password, captcha } = account
-      try {
-        loading.value = true
-        await UserModel.getToken(username, password, captcha, tag)
-        await getInformation()
-        loading.value = false
-        router.push(Config.defaultRoute)
-        ctx.$message({
-          message: '登录成功',
-          type: 'success',
-        })
-      } catch (e) {
-        loading.value = false
-      }
+  name: 'login',
+  data() {
+    return {
+      loading: false, // 加载动画
+      wait: 2000, // 2000ms之内不能重复发起请求
+      throttleLogin: null, // 节流登录
+      captchaImage: null, // 登录验证码
+      tag: null,
+      form: {
+        username: 'root',
+        password: '123456',
+      },
     }
-
-    /**
-     * 获取并更新当前管理员信息
-     */
-    const getInformation = async () => {
+  },
+  methods: {
+    async login() {
+      const { username, password, captcha } = this.form
       try {
-        // 尝试获取当前用户信息
-        const user = await UserModel.getPermissions()
-        store.dispatch('setUserAndState', user)
-        store.commit('SET_USER_PERMISSIONS', user.permissions)
+        this.loading = true
+        await User.getToken(username, password, captcha, this.tag)
+        await this.getInformation()
+        this.loading = false
+        this.$router.push('/about')
+        this.$message.success('登录成功')
       } catch (e) {
-        console.error(e)
+        this.loading = false
+        console.log(e)
       }
-    }
-
-    /**
-     * 节流登录
-     */
-    onMounted(() => {
-      getCaptcha()
-      throttleLogin.value = Utils.throttle(login, wait)
-    })
-
-    /**
-     * 获取图形验证码
-     */
-    const getCaptcha = async () => {
+    },
+    async getCaptcha() {
       axios({
         method: 'POST',
         url: 'cms/user/captcha',
       }).then(result => {
-        ;({ tag } = result)
-        captchaImage.value = result.image
+        this.tag = result.tag
+        this.captchaImage = result.image
       })
-    }
-
-    return {
-      account,
-      loading,
-      captchaImage,
-      throttleLogin,
-      getCaptcha,
-    }
+    },
+    async getInformation() {
+      try {
+        // 尝试获取当前用户信息
+        const user = await User.getPermissions()
+        this.setUserAndState(user)
+        this.setUserPermissions(user.permissions)
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    ...mapActions(['setUserAndState']),
+    ...mapMutations({
+      setUserPermissions: 'SET_USER_PERMISSIONS',
+    }),
   },
+  created() {
+    // 节流登录
+    this.throttleLogin = Utils.throttle(this.login, this.wait)
+    this.getCaptcha()
+  },
+  components: {},
 }
 </script>
 
@@ -154,13 +131,12 @@ export default {
       width: 100%;
 
       .form-item {
-        position: relative;
         width: 100%;
         height: 40px;
         box-sizing: border-box;
         padding-bottom: 13px;
         margin-bottom: 34px;
-
+        position: relative;
         input {
           width: 100%;
           height: 100%;
@@ -170,7 +146,6 @@ export default {
           padding-left: 74px;
           box-sizing: border-box;
         }
-
         .captcha {
           position: absolute;
           width: 80px;

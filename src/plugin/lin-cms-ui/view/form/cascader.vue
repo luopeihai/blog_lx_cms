@@ -2,7 +2,7 @@
   <div class="lin-container">
     <div class="lin-title">Cascader 级联选择器</div>
     <div class="lin-wrap-ui">
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>基础用法</span></div>
         <el-row>
           <el-col>
@@ -19,11 +19,11 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>禁用选项</span></div>
         <el-row>
           <div>
@@ -33,12 +33,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>仅显示最后一级</span></div>
         <el-row>
           <div>
@@ -48,22 +48,22 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ showAllLevels }}</div>
+            <div style="white-space: pre-wrap;">{{ showAllLevels }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>默认值</span></div>
         <el-row>
           <div><el-cascader :options="options1" v-model="selectedOptions3"></el-cascader></div>
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ defaultValue }}</div>
+            <div style="white-space: pre-wrap;">{{ defaultValue }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>选择即改变</span></div>
         <el-row>
           <div>
@@ -73,11 +73,11 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ changeOnSelect }}</div>
+            <div style="white-space: pre-wrap;">{{ changeOnSelect }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>动态加载次级选项</span></div>
         <el-row>
           <div>
@@ -87,12 +87,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ activeItemChange }}</div>
+            <div style="white-space: pre-wrap;">{{ activeItemChange }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>可搜索</span></div>
         <el-row>
           <div class="block">
@@ -106,7 +106,7 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ filterable }}</div>
+            <div style="white-space: pre-wrap;">{{ filterable }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>

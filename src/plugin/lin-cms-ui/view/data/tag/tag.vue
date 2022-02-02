@@ -2,10 +2,8 @@
   <div class="lin-container">
     <div class="lin-title">Tag 标签</div>
     <div class="lin-wrap-ui">
-      <el-card style="margin-bottom: 50px">
-        <template #header>
-          <span>基础用法</span>
-        </template>
+      <el-card style="margin-bottom:50px;">
+        <div slot="header"><span>基础用法</span></div>
         <el-row>
           <div>
             <el-tag>标签一</el-tag>
@@ -17,14 +15,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
-        <template #header>
-          <span>可移除标签</span>
-        </template>
+      <el-card style="margin-bottom:50px;">
+        <div slot="header"><span>可移除标签</span></div>
         <el-row>
           <div>
             <el-tag v-for="tag in tags" :key="tag.name" closable @close="handleCloseTag(tag)" :type="tag.type">
@@ -32,13 +28,13 @@
             </el-tag>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ closable }}</div>
+            <div style="white-space: pre-wrap;">{{ closable }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>动态编辑标签</span></div>
         <el-row>
           <div>
@@ -57,7 +53,7 @@
               v-if="inputVisible"
               ref="saveTagInput"
               size="small"
-              @keyup.enter="handleInputConfirm"
+              @keyup.enter.native="handleInputConfirm"
               @blur="handleInputConfirm"
             >
             </el-input>
@@ -65,14 +61,14 @@
             <!-- <el-button  class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button> -->
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ dynamic }}</div>
+            <div style="white-space: pre-wrap;">{{ dynamic }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>不同尺寸</span></div>
         <el-row>
           <div>
@@ -84,12 +80,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ size }}</div>
+            <div style="white-space: pre-wrap;">{{ size }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>不同主题,通过设置effect属性来改变主题，默认为 light</span></div>
         <el-row>
           <div class="block">
@@ -112,7 +108,7 @@
 
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ theme }}</div>
+            <div style="white-space: pre-wrap;">{{ theme }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
@@ -217,7 +213,7 @@ export default {
               margin-left: 10px;
               vertical-align: bottom;
             }
-            .input-new-tag :v-deep(.el-input__inner) {
+            .input-new-tag /deep/ .el-input__inner {
               height: 24px;
             }
           </style>
@@ -370,7 +366,7 @@ export default {
   margin-left: 10px;
   vertical-align: bottom;
 }
-.input-new-tag :v-deep(.el-input__inner) {
+.input-new-tag /deep/ .el-input__inner {
   height: 24px;
 }
 </style>

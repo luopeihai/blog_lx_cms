@@ -2,7 +2,7 @@
   <div class="lin-container">
     <div class="lin-title">Select 选择器</div>
     <div class="lin-wrap-ui">
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>基础用法</span></div>
         <el-row>
           <el-select size="medium" v-model="value" placeholder="请选择">
@@ -11,12 +11,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>有禁用选项</span></div>
         <el-row>
           <el-select size="medium" v-model="value2" placeholder="请选择">
@@ -32,12 +32,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ disabled }}</div>
+            <div style="white-space: pre-wrap;">{{ disabled }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>可清空单选</span></div>
         <el-row>
           <el-select size="medium" clearable v-model="value3" placeholder="请选择">
@@ -46,12 +46,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ clearable }}</div>
+            <div style="white-space: pre-wrap;">{{ clearable }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>基础多选</span></div>
         <el-row>
           <el-select size="medium" multiple v-model="value4" placeholder="请选择">
@@ -60,12 +60,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ multiple }}</div>
+            <div style="white-space: pre-wrap;">{{ multiple }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>自定义模板</span></div>
         <el-row>
           <el-select v-model="value5" placeholder="请选择">
@@ -77,12 +77,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ template }}</div>
+            <div style="white-space: pre-wrap;">{{ template }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>分组</span></div>
         <el-row>
           <el-select v-model="value6" placeholder="请选择">
@@ -94,12 +94,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ group }}</div>
+            <div style="white-space: pre-wrap;">{{ group }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>可搜索</span></div>
         <el-row>
           <el-select v-model="value7" filterable placeholder="请选择">
@@ -108,12 +108,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ filterable }}</div>
+            <div style="white-space: pre-wrap;">{{ filterable }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>创建条目</span></div>
         <el-row>
           <el-select v-model="value8" multiple filterable allow-create default-first-option placeholder="请选择标签">
@@ -122,7 +122,7 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ create }}</div>
+            <div style="white-space: pre-wrap;">{{ create }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>

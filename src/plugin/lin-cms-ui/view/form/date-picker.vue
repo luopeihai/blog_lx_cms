@@ -2,7 +2,7 @@
   <div class="lin-container">
     <div class="lin-title">DatePicker 日期选择器</div>
     <div class="lin-wrap-ui">
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>选择日</span></div>
         <el-row>
           <div>
@@ -27,11 +27,11 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>其他日期单位</span></div>
         <el-row>
           <div>
@@ -58,13 +58,13 @@
             </div>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ extend }}</div>
+            <div style="white-space: pre-wrap;">{{ extend }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>选择日期范围</span></div>
         <el-row>
           <div>
@@ -97,14 +97,14 @@
             </template>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ dateRange }}</div>
+            <div style="white-space: pre-wrap;">{{ dateRange }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>选择月份范围</span></div>
         <el-row>
           <div>
@@ -137,9 +137,9 @@
             </template>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ monthRange }}</div>
+            <div style="white-space: pre-wrap;">{{ monthRange }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>

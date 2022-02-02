@@ -3,13 +3,12 @@
 </template>
 
 <script>
-import emitter from 'lin/util/emitter'
-
 export default {
   name: 'CloseTab',
+  inject: ['eventBus'],
   methods: {
     closeReuseTab() {
-      emitter.emit('clearTap')
+      this.eventBus.$emit('clearTap')
     },
   },
 }

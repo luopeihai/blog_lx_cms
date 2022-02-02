@@ -11,15 +11,7 @@ todo: 文件判断使用 serveWorker 优化性能
     <template v-for="(item, i) in itemList">
       <template v-if="item.display">
         <div class="thumb-item" :key="item.id" :style="boxStyle" v-loading="item.loading">
-          <el-image
-            :fit="fit"
-            :ref="setImageRef"
-            :src="item.display"
-            class="thumb-item-img"
-            :previewSrcList="srcList"
-            style="width: 100%; height: 100%"
-          >
-          </el-image>
+          <el-image class="thumb-item-img" :src="item.display" :fit="fit" style="width: 100%; height: 100%;"></el-image>
           <div class="info">
             <i
               v-if="item.file"
@@ -45,7 +37,7 @@ todo: 文件判断使用 serveWorker 优化性能
                 v-if="preview"
                 class="control-bottom-btn el-icon-view"
                 title="预览"
-                style="cursor: pointer"
+                style="cursor: pointer;"
                 @click.stop="previewImg(item, i)"
               ></i>
               <i
@@ -68,8 +60,8 @@ todo: 文件判断使用 serveWorker 优化性能
           @click="handleClick(item.id)"
           @keydown="handleKeydown($event, item.id)"
         >
-          <i class="el-icon-plus" style="font-size: 3em"></i>
-          <div v-html="rulesTip.join('<br>')" style="margin-top: 1em"></div>
+          <i class="el-icon-plus" style="font-size: 3em;"></i>
+          <div v-html="rulesTip.join('<br>')" style="margin-top: 1em;"></div>
         </div>
       </template>
     </template>
@@ -81,12 +73,10 @@ todo: 文件判断使用 serveWorker 优化性能
       :multiple="multiple"
       :accept="accept"
     />
-    <!-- <el-image-viewer v-if="showViewer" @close="closeViewer" :initial-index="imageInitialIndex" :url-list="srcList" /> -->
   </div>
 </template>
 
 <script>
-import { post } from '@/lin/plugin/axios'
 import { getFileType, checkIsAnimated, isEmptyObj, createId } from './utils'
 
 /**
@@ -230,12 +220,10 @@ export default {
   name: 'UploadImgs',
   data() {
     return {
-      srcList: [],
       itemList: [],
-      imageRefs: [],
       loading: false,
       currentId: '', // 正在操作项的id
-      imageInitialIndex: 0,
+      globalImgPriview: '$imagePreview', // 全局图片预览方法名
     }
   },
   props: {
@@ -470,21 +458,25 @@ export default {
       uploadList.forEach((item, index) => {
         data[`file_${index}`] = item.img.file
       })
-      return post('cms/file', data)
+      return this.$axios({
+        method: 'post',
+        url: '/cms/file',
+        data,
+      })
         .then(res => {
           if (!Array.isArray(res) || res.length === 0) {
             throw new Error('图像上传失败')
           }
 
-          // const resObj = res.reduce((acc, item) => {
-          //   acc[item.key] = item
-          //   return acc
-          // }, {})
+          const resObj = res.reduce((acc, item) => {
+            acc[item.key] = item
+            return acc
+          }, {})
 
-          // uploadList.forEach((item, index) => {
-          //   const remoteData = resObj[`file_${index}`]
-          //   item.cb(remoteData)
-          // })
+          uploadList.forEach((item, index) => {
+            const remoteData = resObj[`file_${index}`]
+            item.cb(remoteData)
+          })
         })
         .catch(err => {
           uploadList.forEach(item => {
@@ -561,7 +553,6 @@ export default {
       if (item.status === 'input' || !item.file) {
         return
       }
-
       // eslint-disable-next-line
       item.loading = true
       if (this.beforeUpload && typeof this.beforeUpload === 'function') {
@@ -592,7 +583,6 @@ export default {
           }
         }
       }
-
       // 如果是用户自定义方法
       // 出于简化 api 的考虑, 只允许单个文件上传, 不进行代理
       if (this.remoteFuc && typeof this.remoteFuc === 'function') {
@@ -727,13 +717,23 @@ export default {
      * @param {Number} index 索引序号
      */
     previewImg(data, index) {
-      const usable = this.itemList.filter(item => item.status !== 'input')
-      this.srcList = usable.map(item => item.display)
-      this.imageRefs[index].showViewer = true
-    },
-    setImageRef(el) {
-      if (el) {
-        this.imageRefs.push(el)
+      // 如果有全局预览方法
+      if (this[this.globalImgPriview]) {
+        const images = []
+        this.itemList.forEach(element => {
+          if (element.display) {
+            images.push(element.display)
+          }
+        })
+        this[this.globalImgPriview]({
+          images,
+          index,
+        })
+      } else {
+        // element 原生粗糙模式
+        this.$confirm(`<img src="${data.display}" style="width: 100%;" />`, '预览', {
+          dangerouslyUseHTMLString: true,
+        })
       }
     },
     /**
@@ -876,7 +876,6 @@ export default {
       }
       try {
         imgInfoList = await Promise.all(asyncList)
-
         // 设置图片信息
         this.setImgInfo(imgInfoList, currentId)
         // 开启自动上传
@@ -886,7 +885,6 @@ export default {
           })
         }
       } catch (err) {
-        debugger
         // 清空缓存
         for (let i = 0; i < cache.length; i += 1) {
           window.URL.revokeObjectURL(cache[i].localSrc)
@@ -905,7 +903,6 @@ export default {
      */
     setImgInfo(imgInfoList = [], currentId) {
       const { max, itemList } = this
-
       // 找到特定图像位置
       const index = this.itemList.findIndex(item => item.id === currentId)
       // 释放内存
@@ -972,6 +969,7 @@ export default {
     initItemList(val) {
       const { max, isStable, disabled } = this
       const result = []
+
       // 初始值不存在情况
       // 包括初始值不合法
       if (!val || !Array.isArray(val) || val.length === 0) {
@@ -1084,12 +1082,6 @@ export default {
   }
 
   .thumb-item {
-    :v-deep(.el-image-viewer__canvas) {
-      position: absolute;
-      max-width: 800px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
     .info {
       display: flex;
       align-items: center;

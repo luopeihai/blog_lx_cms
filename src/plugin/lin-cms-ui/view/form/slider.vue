@@ -2,7 +2,7 @@
   <div class="lin-container">
     <div class="lin-title">Slider 滑块</div>
     <div class="lin-wrap-ui">
-      <el-card class="box-card base-box-card" style="margin-bottom: 50px">
+      <el-card class="box-card base-box-card" style="margin-bottom:50px;">
         <div slot="header"><span>基础用法</span></div>
         <el-row>
           <template>
@@ -30,12 +30,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>离散值</span></div>
         <el-row>
           <template>
@@ -51,12 +51,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ showStops }}</div>
+            <div style="white-space: pre-wrap;">{{ showStops }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>带有输入框</span></div>
         <el-row>
           <template>
@@ -65,12 +65,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ showInput }}</div>
+            <div style="white-space: pre-wrap;">{{ showInput }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>范围选择</span></div>
         <el-row>
           <template>
@@ -79,12 +79,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ range }}</div>
+            <div style="white-space: pre-wrap;">{{ range }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>竖向模式</span></div>
         <el-row>
           <template>
@@ -93,12 +93,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ vertical }}</div>
+            <div style="white-space: pre-wrap;">{{ vertical }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>展示标记</span></div>
         <el-row>
           <template>
@@ -107,7 +107,7 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ marksCode }}</div>
+            <div style="white-space: pre-wrap;">{{ marksCode }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
@@ -336,7 +336,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/style/container.scss';
 
-.base-box-card :v-deep(.el-card__body) {
+.base-box-card /deep/ .el-card__body {
   padding-top: 0px;
   padding-bottom: 0px;
 }

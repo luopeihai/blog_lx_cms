@@ -2,7 +2,7 @@
   <div class="lin-container">
     <div class="lin-title">Radio 单选框</div>
     <div class="lin-wrap-ui">
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>基础用法</span></div>
         <el-row>
           <el-col :span="12">
@@ -12,12 +12,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>禁用状态</span></div>
         <el-row>
           <el-col :span="12">
@@ -27,12 +27,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ disabled }}</div>
+            <div style="white-space: pre-wrap;">{{ disabled }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>单选框组</span></div>
         <el-row :gutter="20">
           <el-col :span="12">
@@ -45,12 +45,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ group }}</div>
+            <div style="white-space: pre-wrap;">{{ group }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>按钮样式</span></div>
         <el-row>
           <el-col :span="12">
@@ -62,7 +62,7 @@
                 <el-radio-button label="深圳"></el-radio-button>
               </el-radio-group>
             </div>
-            <div style="margin: 20px 0px">
+            <div style="margin:20px 0px;">
               <el-radio-group v-model="radio2" size="medium">
                 <el-radio-button label="上海"></el-radio-button>
                 <el-radio-button label="北京"></el-radio-button>
@@ -70,7 +70,7 @@
                 <el-radio-button label="深圳"></el-radio-button>
               </el-radio-group>
             </div>
-            <div style="margin: 20px 0px">
+            <div style="margin:20px 0px;">
               <el-radio-group v-model="radio3" size="small">
                 <el-radio-button label="上海"></el-radio-button>
                 <el-radio-button label="北京" disabled></el-radio-button>
@@ -91,12 +91,12 @@
 
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ button }}</div>
+            <div style="white-space: pre-wrap;">{{ button }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card class="box-card" style="margin-bottom: 50px">
+      <el-card class="box-card" style="margin-bottom:50px;">
         <div slot="header"><span>尺寸</span></div>
         <el-row :gutter="20">
           <el-col :span="12">
@@ -104,11 +104,11 @@
               <el-radio v-model="radio5" label="1" border>备选项1</el-radio>
               <el-radio v-model="radio5" label="2" border>备选项2</el-radio>
             </div>
-            <div style="margin: 20px 0px">
+            <div style="margin: 20px 0px;">
               <el-radio v-model="radio6" label="1" border size="medium">备选项1</el-radio>
               <el-radio v-model="radio6" label="2" border size="medium">备选项2</el-radio>
             </div>
-            <div style="margin: 20px 0px">
+            <div style="margin: 20px 0px;">
               <el-radio-group v-model="radio7" size="small">
                 <el-radio label="1" border>备选项1</el-radio>
                 <el-radio label="2" border disabled>备选项2</el-radio>
@@ -124,7 +124,7 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ size }}</div>
+            <div style="white-space: pre-wrap;">{{ size }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>

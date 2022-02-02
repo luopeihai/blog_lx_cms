@@ -1,12 +1,10 @@
 {
   "name": "lc-plugin-custom",
-  "title": "自定义组件展示",
+  "title": "图像上传组件示例",
   "version": "1.0.0",
-  "_linVersion": "0.4.0",
-  "description": "自定义组件展示",
+  "_linVersion": "0.0.1-alpha.3",
+  "description": "展示图像上传组件能力",
   "author": "",
-  "dependencies": {
-    "element-plus": "^1.0.2-beta.36"
-  },
+  "dependencies": {},
   "devDependencies": {}
 }

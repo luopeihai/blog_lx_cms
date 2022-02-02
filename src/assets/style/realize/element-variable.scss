@@ -19,23 +19,18 @@ $--background-color-base: #F6F7FA !default;
 $--link-default-active-color: $--color-primary !default;
 $--link-default-font-color: $--color-text-regular !default;
 $--link-disabled-font-color: $--color-text-placeholder !default;
+
 /* 改变 icon 字体路径变量，必需 */
-//$--font-path: "~element-plus/lib/theme-chalk/fonts";
-//兼容字体 新版本element-plus 已经移除font-icon
-@import "../elementFont.css";
-@import "~element-plus/theme-chalk/src/index";
-@import "~element-plus/theme-chalk/src/mixins/mixins";
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+@import "./lin-variable.scss";
 
 // button
 .el-button {
   padding: 8px 16px;
   border-radius: 2px;
-
-  &:hover {
-    color: #3963bc !important;
-    background: #ebeff8 !important;
-    border: 1px solid #c4d0eb !important;
-  }
 
   &.is-round {
     padding: 8px 16px;
@@ -63,60 +58,44 @@ $--link-disabled-font-color: $--color-text-placeholder !default;
 }
 
 .el-button--primary {
-  color: #fff !important;
-  background: #3963bc !important;
-  border: 1px solid #3963bc !important;
-
-  &:hover,
-  &:focus {
-    color: #fff !important;
-    background: #0037ad !important;
-    border: 1px solid #0037ad !important;
-  }
-}
-
-.el-button--primary {
   &.is-plain {
-    color: #3963bc !important;
-    background: #fff !important;
-    border: 1px solid #3963bc !important;
+    color: #3963bc;
+    background: #fff;
+    border: 1px solid #3963bc;
   }
 
   &:hover,
   &:focus {
-    color: #fff !important;
-    background: #0037ad !important;
-    border: 1px solid #0037ad !important;
+    background: #0037ad;
+    border: 1px solid #0037ad;
   }
 }
 
 .el-button--success {
   &.is-plain {
-    color: #34bfa3 !important;
-    background: #fff !important;
-    border: 1px solid #34bfa3 !important;
+    color: #34bfa3;
+    background: #fff;
+    border: 1px solid #34bfa3;
   }
 
   &:hover,
   &:focus {
-    color: #fff !important;
-    background: #009d72 !important;
-    border: 1px solid #009d72 !important;
+    background: #009d72;
+    border: 1px solid #009d72;
   }
 }
 
 .el-button--danger {
   &.is-plain {
-    color: #f4516c !important;
-    background: #fff !important;
-    border: 1px solid #f4516c !important;
+    color: #f4516c;
+    background: #fff;
+    border: 1px solid #f4516c;
   }
 
   &:hover,
   &:focus {
-    color: #fff !important;
-    background: #d62f40 !important;
-    border: 1px solid #d62f40 !important;
+    background: #d62f40;
+    border: 1px solid #d62f40;
   }
 }
 
@@ -124,52 +103,52 @@ $--link-disabled-font-color: $--color-text-placeholder !default;
   color: #FFFFFF;
 
   &.is-plain {
-    color: #ffcb71 !important;
-    background: #fff !important;
-    border: 1px solid #ffcb71 !important;
+    color: #ffcb71;
+    background: #fff;
+    border: 1px solid #ffcb71;
 
     &:hover,
     &:focus {
-      background: #ffcb71 !important;
-      color: #fff !important;
-      border: 1px solid #ffcb71 !important;
+      background: #ffcb71;
+      color: #fff;
+      border: 1px solid #ffcb71;
     }
 
     &.is-disabled {
-      color: #fff !important;
-      background: #FFBE4D !important;
-      border: 1px solid #FFBE4D !important;
-      opacity: 0.5 !important;
+      color: #fff;
+      background: #FFBE4D;
+      border: 1px solid #FFBE4D;
+      opacity: 0.5;
 
       &:hover,
       &:focus {
-        color: #fff !important;
-        background: #ffcb71 !important;
-        border: 1px solid #ffcb71 !important;
-        opacity: 0.5 !important;
+        color: #fff;
+        background: #ffcb71;
+        border: 1px solid #ffcb71;
+        opacity: 0.5;
       }
     }
   }
 
   &:hover,
   &:focus {
-    color: #fff !important;
-    background: #FFBE4D !important;
-    border: 1px solid #FFBE4D !important;
+    color: #fff;
+    background: #FFBE4D;
+    border: 1px solid #FFBE4D;
   }
 
   &.is-disabled {
-    background: #ffcb71 !important;
-    color: #fff !important;
-    border: 1px solid #ffcb71 !important;
-    opacity: 0.5 !important;
+    background: #ffcb71;
+    color: #fff;
+    border: 1px solid #ffcb71;
+    opacity: 0.5;
 
     &:hover,
     &:focus {
-      background: #ffcb71 !important;
-      color: #fff !important;
-      border: 1px solid #ffcb71 !important;
-      opacity: 0.5 !important;
+      background: #ffcb71;
+      color: #fff;
+      border: 1px solid #ffcb71;
+      opacity: 0.5;
     }
   }
 }
@@ -298,13 +277,6 @@ $--link-disabled-font-color: $--color-text-placeholder !default;
   }
 }
 
-.el-table .cell {
-  display: flex;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  padding-left: 20px;
-}
-
 .el-table thead tr th .cell {
   color: #333;
   font-weight: 500;
@@ -385,7 +357,7 @@ thead tr {
         width: 4px;
         height: 4px;
         border-radius: 50%;
-        border: 1px solid $sub-menu-title;
+        border: 1px solid $submenu-title;
         position: absolute;
         left: 45px;
         top: 23px;
@@ -411,6 +383,45 @@ thead tr {
         top: 23px;
       }
     }
+
+    &.third {
+
+      // 3级
+      .el-menu-item {
+        position: relative;
+
+        &:before {
+          content: "";
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          border: 1px solid $submenu-title;
+          position: absolute;
+          left: 65px;
+          top: 23px;
+        }
+      }
+
+      .el-menu-item-group__title {
+        padding: 0;
+      }
+
+      .el-menu-item.is-active {
+        position: relative;
+
+        &:before {
+          content: "";
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          border: none;
+          background: $theme;
+          position: absolute;
+          left: 65px;
+          top: 23px;
+        }
+      }
+    }
   }
 }
 
@@ -419,16 +430,15 @@ thead tr {
   border-right: 1px solid #1d2a60;
 }
 
-.el-menu--vertical > .el-menu--popup {
-  max-height: 100vh;
-  overflow-y: auto;
+.el-menu--vertical .abc {
+  left: 70px !important;
 }
 
-.el-menu--vertical :v-deep(.icon-erjizhibiao) {
+.el-menu--vertical /deep/ .icon-erjizhibiao {
   display: none;
 }
 
-.el-menu--vertical :v-deep(.two-folder) {
+.el-menu--vertical /deep/ .two-folder {
   margin-left: 40px;
 }
 
@@ -461,47 +471,47 @@ thead tr {
 
 .el-submenu.is-active.is-opened {
   .el-submenu__title {
-    color: $sub-menu-title !important;
-    background: $menu-item-bg !important;
+    color: $submenu-title !important;
+    background: $menuItem-bg !important;
     height: 50px;
 
     &:hover {
-      background: $menu-item-hover !important;
+      background: $menuItem-hover !important;
     }
 
     i {
-      color: $sub-menu-title;
+      color: $submenu-title;
     }
   }
 }
 
 .is-opened {
   .el-submenu__title {
-    height: $menu-item-height;
+    height: $menuItem-height;
     transition: border-color 0s, background-color 0s, color 0s;
   }
 
   .el-menu--inline {
-    background: $menu-item-bg !important;
+    background: $menuItem-bg !important;
 
     &:hover {
-      background-color: $menu-item-hover !important;
+      background-color: $menuItem-hover !important;
     }
   }
 
   .el-submenu__title {
-    background: $menu-item-bg !important;
+    background: $menuItem-bg !important;
 
     &:hover {
-      background-color: $menu-item-hover !important;
+      background-color: $menuItem-hover !important;
     }
   }
 
   .el-menu-item {
-    background: $menu-item-bg !important;
+    background: $menuItem-bg !important;
 
     &:hover {
-      background-color: $menu-item-hover !important;
+      background-color: $menuItem-hover !important;
     }
   }
 }
@@ -509,11 +519,11 @@ thead tr {
 .el-menu-item {
   //display: flex;
   //align-items: center;
-  height: $menu-item-height;
+  height: $menuItem-height;
   transition: border-color 0s, background-color 0s, color 0s;
 
   &:hover {
-    background-color: $menu-item-hover;
+    background-color: $menuItem-hover;
   }
 }
 
@@ -534,14 +544,14 @@ thead tr {
 
 .el-submenu__title {
   // display: flex;
-  height: $menu-item-height;
+  height: $menuItem-height;
   align-items: center;
   line-height: 50px;
   // padding-left: 17px !important;
   box-sizing: border-box;
 
   i {
-    color: $sub-menu-title;
+    color: $submenu-title;
   }
 }
 
@@ -550,7 +560,7 @@ thead tr {
   // margin-left: -2px;
   .el-submenu.is-active {
     .el-submenu__title {
-      height: $menu-item-height;
+      height: $menuItem-height;
       background-color: #1d2a60 !important;
 
       i {
@@ -570,7 +580,7 @@ thead tr {
 
 .router-link-active {
   .el-menu-item.is-active {
-    height: $menu-item-height;
+    height: $menuItem-height;
     color: $theme !important;
   }
 }
@@ -587,7 +597,7 @@ thead tr {
 
 // layout
 .el-container.is-vertical {
-  background: $app-main-background;
+  background: $appmain-background;
 }
 
 .el-aside {
@@ -596,7 +606,7 @@ thead tr {
 
 .el-main {
   padding: 0 20px 20px 20px;
-  background: $app-main-background;
+  background: $appmain-background;
 }
 
 .el-container {
@@ -657,10 +667,10 @@ $typeMap: (primary:#3963BC,
       }
     }
   }
- }
+}
 
- /* tag */
- @include b(tag) {
+/* tag */
+@include b(tag) {
   background-color: #3963BC;
   padding: 0 13px;
   height: 24px;;

@@ -1,8 +1,8 @@
 <template>
-  <div style="height: 100%">
+  <div style="height:100%;">
     <el-container>
-      <el-aside :width="sidebarWidth" class="aside" :style="asideStyle">
-        <sidebar :isCollapse="isCollapse" :is-phone="isPhone"></sidebar>
+      <el-aside :width="sideBarWidth" class="aside" :style="asideStyle">
+        <side-bar :isCollapse="isCollapse" :is-phone="isPhone"></side-bar>
       </el-aside>
       <el-container>
         <el-header class="header">
@@ -26,47 +26,41 @@
 </template>
 
 <script>
-import emitter from 'lin/util/emitter'
-import { NavBar, Sidebar, AppMain, ReuseTab, MenuTab, BackTop } from '@/component/layout'
+import { NavBar, SideBar, AppMain, ReuseTab, MenuTab, BackTop } from '@/component/layout'
 
 const navBarHeight = 66 // header高度
 const reuseTabHeight = 70 // 历史记录栏高度
 const marginHeight = 20 // 历史记录栏与舞台的间距
-const sidebarWidth = '210px'
+const sideBarWidth = '210px'
 const totalHeight = navBarHeight + reuseTabHeight + marginHeight
 
 export default {
-  components: {
-    NavBar,
-    Sidebar,
-    AppMain,
-    ReuseTab,
-    MenuTab,
-    BackTop,
-  },
+  name: 'layout',
   data() {
     return {
       isCollapse: false, // 左侧菜单栏是否折叠
-      sidebarWidth, // 左侧菜单栏展开的宽度
+      sideBarWidth, // 左侧菜单栏展开的宽度
       clientWidth: 0, // 页面宽度
       clientHeight: 0, // 页面高度
       foldState: false, // 控制左侧菜单栏按键
       isPhone: false,
     }
   },
+  created() {},
   mounted() {
     this.setResize()
+    // console.log(this.clientWidth)
     if (this.clientWidth < 500) {
       this.isPhone = true
     } else {
       this.isPhone = false
       // 检测屏幕宽度, 确定默认是否展开
       if (this.clientWidth <= 768) {
-        emitter.emit('removeSidebarSearch')
+        this.eventBus.$emit('removeSidebarSearch')
         this.isCollapse = true
       } else {
         this.isCollapse = false
-        emitter.emit('showSidebarSearch')
+        this.eventBus.$emit('showSidebarSearch')
       }
     }
     // 监测屏幕宽度 折叠左侧菜单栏
@@ -90,13 +84,14 @@ export default {
       // }
     }
 
-    emitter.on('noReuse', () => {
+    this.eventBus.$on('noReuse', () => {
       this.$refs.operate.style.height = '86px'
     })
-    emitter.on('hasReuse', () => {
+    this.eventBus.$on('hasReuse', () => {
       this.$refs.operate.style.height = '45px'
     })
   },
+  inject: ['eventBus'],
   computed: {
     elMenuCollapse() {
       if (this.isPhone) {
@@ -112,7 +107,7 @@ export default {
         style.height = `${this.clientHeight}px`
         style.zIndex = 12
         if (this.isCollapse === false) {
-          style.transform = `translateX(-${sidebarWidth})`
+          style.transform = `translateX(-${sideBarWidth})`
         } else {
           style.transform = 'translateX(0)'
         }
@@ -125,9 +120,9 @@ export default {
     changeSlidebarState() {
       this.isCollapse = !this.isCollapse
       if (this.isCollapse) {
-        emitter.emit('removeSidebarSearch')
+        this.eventBus.$emit('removeSidebarSearch')
       } else {
-        emitter.emit('showSidebarSearch')
+        this.eventBus.$emit('showSidebarSearch')
       }
       this.foldState = !this.foldState
     },
@@ -142,15 +137,15 @@ export default {
     isCollapse() {
       if (this.isPhone) {
         // 手机模式
-        this.sidebarWidth = sidebarWidth
+        this.sideBarWidth = sideBarWidth
         if (this.isCollapse === false) {
           this.transX = 0
         } else {
-          this.transX = -1 * sidebarWidth
+          this.transX = -1 * sideBarWidth
         }
       } else {
         this.transX = 0
-        this.sidebarWidth = this.isCollapse === false ? sidebarWidth : '64px'
+        this.sideBarWidth = this.isCollapse === false ? sideBarWidth : '64px'
       }
     },
     $route() {
@@ -164,10 +159,17 @@ export default {
       }
     },
   },
-
-  beforeUnmount() {
-    emitter.off('noReuse')
-    emitter.off('hasReuse')
+  components: {
+    NavBar,
+    SideBar,
+    AppMain,
+    ReuseTab,
+    MenuTab,
+    BackTop,
+  },
+  beforeDestroy() {
+    this.eventBus.$off('noReuse')
+    this.eventBus.$off('hasReuse')
   },
 }
 </script>

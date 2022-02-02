@@ -169,34 +169,22 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
-
 export default {
-  setup() {
-    const showTeam = ref(false)
-    const activeName = ref('first')
-    const { clientWidth } = document.body
-
-    onMounted(() => {
-      if (clientWidth > 1200 && clientWidth < 1330) {
-        showTeam.value = true
-      } else {
-        showTeam.value = false
-      }
-    })
-
-    /**
-     * 切换选项
-     */
-    const handleArticle = link => {
-      window.open(link)
-    }
-
+  data() {
     return {
-      showTeam,
-      activeName,
-      handleArticle,
+      activeName: 'first',
+      showTeam: false,
     }
+  },
+  mounted() {
+    if (document.body.clientWidth > 1200 && document.body.clientWidth < 1330) {
+      this.showTeam = true
+    }
+  },
+  methods: {
+    handleArticle(link) {
+      window.open(link)
+    },
   },
 }
 </script>
@@ -466,12 +454,12 @@ export default {
       .personal-tabs {
         margin-bottom: 20px;
       }
-      .personal-tabs :v-deep(.is-top) {
+      .personal-tabs /deep/ .is-top {
         width: 320px;
         display: flex;
         justify-content: space-around;
       }
-      .personal-tabs :v-deep(.el-tabs__content) {
+      .personal-tabs /deep/ .el-tabs__content {
         text-indent: 20px;
       }
     }

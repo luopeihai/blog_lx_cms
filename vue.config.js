@@ -5,15 +5,24 @@ function resolve(dir) {
 }
 
 module.exports = {
-  lintOnSave: false,
+  lintOnSave: true,
   productionSourceMap: false,
   // assetsDir: 'static',
   chainWebpack: config => {
-    config.resolve.alias.set('@', resolve('src')).set('lin', resolve('src/lin')).set('assets', resolve('src/assets'))
-    config.module.rule('ignore').test(/\.md$/).use('ignore-loader').loader('ignore-loader').end()
+    config.resolve.alias
+      .set('@', resolve('src'))
+      .set('lin', resolve('src/lin'))
+      .set('assets', resolve('src/asset'))
+    config.module
+      .rule('md')
+      .test(/\.md$/)
+      .use('vue-loader')
+      .loader('vue-loader')
+      .end()
+      .use('vue-markdown-loader')
+      .loader('vue-markdown-loader/lib/markdown-compiler')
   },
   configureWebpack: {
-    devtool: 'source-map',
     resolve: {
       extensions: ['.js', '.json', '.vue', '.scss', '.html'],
     },
@@ -21,7 +30,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        prependData: `@import "@/assets/style/shared.scss";`,
+        data: '@import "@/assets/style/share.scss";',
       },
     },
   },

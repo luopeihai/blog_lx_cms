@@ -2,7 +2,7 @@
   <div class="lin-container">
     <div class="lin-title">Breadcrumb 面包屑</div>
     <div class="lin-wrap-ui">
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>基础用法</span></div>
         <el-row>
           <div>
@@ -16,11 +16,11 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>图标分隔符</span></div>
         <el-row>
           <div>
@@ -32,14 +32,14 @@
             </el-breadcrumb>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ separatorClass }}</div>
+            <div style="white-space: pre-wrap;">{{ separatorClass }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>启用replace</span></div>
         <el-row>
           <div>
@@ -52,9 +52,9 @@
             </el-breadcrumb>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ separatorClass }}</div>
+            <div style="white-space: pre-wrap;">{{ separatorClass }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>

@@ -1,26 +1,16 @@
 <template>
   <div v-if="histories.length > 1" ref="resueTab" class="reuse-tab">
-    <swiper
-      class="reuse-tab-wrap"
-      slides-per-view="auto"
-      :space-between="1"
-      :initial-slide="0"
-      effect="slide"
-      :prevent-clicks="false"
-      :free-mode="true"
-      :mousewheel="true"
-      direction="horizontal"
-    >
+    <swiper :options="swiperOption" class="reuse-tab-wrap">
       <swiper-slide v-for="(item, index) in histories" :key="item.path">
         <router-link
           class="reuse-tab-item"
           :class="item.path === $route.path ? 'active' : ''"
           :to="item.path"
-          @contextmenu.prevent="onTags(index, $event)"
+          @contextmenu.prevent.native="onTags(index, $event)"
         >
           <i v-if="!filterIcon(stageList[item.stageId].icon)" :class="stageList[item.stageId].icon"></i>
-          <img v-else :src="stageList[item.stageId].icon" style="width: 16px" />
-          <span style="padding: 0 5px">{{ stageList[item.stageId].title }}</span>
+          <img v-else :src="stageList[item.stageId].icon" style="width:16px;" />
+          <span style="padding: 0 5px;">{{ stageList[item.stageId].title }}</span>
           <span class="el-icon-close" @click.prevent.stop="close(index)" />
         </router-link>
       </swiper-slide>
@@ -37,16 +27,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import emitter from 'lin/util/emitter'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import SwiperCore, { Mousewheel } from 'swiper'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
-import 'swiper/swiper.scss'
-
-SwiperCore.use([Mousewheel])
+import 'swiper/dist/css/swiper.css' // eslint-disable-line
 
 export default {
-  components: { Swiper, SwiperSlide },
+  components: { swiper, swiperSlide },
   data() {
     return {
       histories: [],
@@ -56,6 +42,17 @@ export default {
       top: 0,
       left: 0,
       index: 0,
+      swiperOption: {
+        slidesPerView: 'auto',
+        initialSlide: 0,
+        effect: 'slide',
+        spaceBetween: 1,
+        preventClicks: false,
+        freeMode: true,
+        mousewheel: {
+          sensitivity: 1.5,
+        },
+      },
     }
   },
   watch: {
@@ -66,14 +63,13 @@ export default {
       if (flag) {
         return
       }
-
       const ele = {}
       ele.stageId = to.name
       ele.path = to.path
       ele.routePath = to.matched[to.matched.length - 1].path
       this.histories = [ele, ...histories]
     },
-    loggedIn(val) {
+    logined(val) {
       if (val) {
         return
       }
@@ -92,12 +88,13 @@ export default {
     },
     histories(arr) {
       if (arr.length < 2) {
-        emitter.emit('noReuse')
+        this.eventBus.$emit('noReuse')
       } else {
-        emitter.emit('hasReuse')
+        this.eventBus.$emit('hasReuse')
       }
     },
   },
+  inject: ['eventBus'],
   created() {
     // 关闭窗口时执行
     window.onbeforeunload = () => {
@@ -106,8 +103,8 @@ export default {
     }
   },
   computed: {
-    loggedIn() {
-      return this.$store.state.loggedIn
+    logined() {
+      return this.$store.state.logined
     },
     defaultRoute() {
       return this.$store.state.defaultRoute
@@ -116,7 +113,7 @@ export default {
   },
   mounted() {
     this.init()
-    emitter.on('clearTap', () => {
+    this.eventBus.$on('clearTap', () => {
       this.histories = []
     })
   },
@@ -143,8 +140,10 @@ export default {
         if (!findResult) {
           return
         }
-
-        histories.push({ ...item, stageId: findResult.name })
+        histories.push({
+          ...item,
+          stageId: findResult.name,
+        })
         this.histories = histories
       })
     },
@@ -220,22 +219,21 @@ export default {
 
 <style lang="scss" scoped>
 .swiper-slide {
-  width: auto !important;
+  width: auto;
   min-width: 126px;
   display: flex;
-  height: $reuse-tab-height;
+  height: $reusetab-height;
   flex-direction: column;
   justify-content: center;
   background-color: $reuse-tab-item-background;
   color: $right-side-font-color;
-  margin-right: 1px;
 }
 
 .reuse-tab-wrap {
   bottom: 0;
   left: 0;
   user-select: none;
-  height: $reuse-tab-height;
+  height: $reusetab-height;
   background: $header-background;
   font-size: 14px;
   color: #8c98ae;
@@ -246,7 +244,7 @@ export default {
   .reuse-tab-item {
     box-sizing: border-box;
     width: auto;
-    height: $reuse-tab-height;
+    height: $reusetab-height;
     min-width: 126px;
     display: flex;
     justify-content: center;
