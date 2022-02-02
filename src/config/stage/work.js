@@ -22,7 +22,7 @@ const workRouter = {
       type: 'view',
       name: 'WorkCreate',
       route: '/work/add',
-      filePath: 'view/work/work.vue',
+      filePath: 'view/work/work-create.vue',
       inNav: true,
       icon: 'iconfont icon-add',
     },

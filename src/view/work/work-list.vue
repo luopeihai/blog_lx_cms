@@ -26,8 +26,18 @@
           </template>
         </el-table-column>
       </el-table>
+      <div class="pagination">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :background="true"
+          :page-size="pageCount"
+          :current-page="currentPage"
+          v-if="refreshPagination"
+          layout="prev, pager, next, jumper"
+          :total="totalNums"
+        ></el-pagination>
+      </div>
     </div>
-
     <!-- 编辑页面 -->
     <work-modify v-else @editClose="editClose" :editID="editID"></work-modify>
   </div>
@@ -47,6 +57,10 @@ export default {
       showEdit: false,
       editID: 1,
       loading: true,
+      totalNums: 0,
+      currentPage: 1,
+      pageCount: 1,
+      refreshPagination: true, // 页数增加的时候，因为缓存的缘故，需要刷新Pagination组件
     }
   },
   async created() {
@@ -55,10 +69,19 @@ export default {
     this.loading = false
   },
   methods: {
+    async handleCurrentChange(val) {
+      this.currentPage = val
+      this.loading = true
+      this.getWorks()
+      this.loading = false
+    },
     async getWorks() {
       try {
-        const works = await work.getWorks()
-        this.tableData = works
+        const page = this.currentPage - 1
+        const count = this.pageCount
+        const works = await work.getWorks(page, count)
+        this.tableData = works.items
+        this.totalNums = works.total
       } catch (error) {
         if (error.code === 10020) {
           this.tableData = []

@@ -32,11 +32,10 @@ class Work {
     return res
   }
 
-  async getWorks() {
-    return _axios({
-      method: 'get',
-      url: 'cms/work',
-      handleError: true,
+  async getWorks(page = 0, count = 10) {
+    return get('cms/work', {
+      page,
+      count,
     })
   }
 }
