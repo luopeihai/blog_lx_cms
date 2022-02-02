@@ -3,6 +3,14 @@
     <!-- 列表页面 -->
     <div class="container" v-if="!showEdit">
       <div class="header"><div class="title">作品列表</div></div>
+      <el-form ref="form" :inline="true" :rules="searchRules" :model="search" @submit.native.prevent>
+        <el-form-item label="标题" prop="title">
+          <el-input size="medium" v-model="search.title" placeholder="请输入标题内容"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit('form')">查询</el-button>
+        </el-form-item>
+      </el-form>
       <!-- 表格 -->
       <el-table stripe v-loading="loading" :data="tableData">
         <el-table-column prop="id" label="id" width="100"></el-table-column>
@@ -53,6 +61,10 @@ export default {
   },
   data() {
     return {
+      search: {
+        title: '',
+      },
+      searchRules: {},
       tableData: [],
       showEdit: false,
       editID: 1,
@@ -75,11 +87,19 @@ export default {
       this.getWorks()
       this.loading = false
     },
+    async onSubmit(formName) {
+      this.$refs[formName].validate(async valid => {
+        if (valid) {
+          this.getWorks()
+        }
+      })
+    },
     async getWorks() {
       try {
         const page = this.currentPage - 1
         const count = this.pageCount
-        const works = await work.getWorks(page, count)
+        const { title } = this.search
+        const works = await work.getWorks(page, count, title)
         this.tableData = works.items
         this.totalNums = works.total
       } catch (error) {
@@ -93,12 +113,12 @@ export default {
       this.editID = val.id
     },
     handleDelete(val) {
-      this.$confirm('此操作将永久删除该图书, 是否继续?', '提示', {
+      this.$confirm('此操作将永久删除该作品, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(async () => {
-        const res = await work.deleteBook(val.row.id)
+        const res = await work.deleteBook(val.id)
         if (res.code < window.MAX_SUCCESS_CODE) {
           this.getWorks()
           this.$message({
@@ -108,7 +128,6 @@ export default {
         }
       })
     },
-    rowClick() {},
     editClose() {
       this.showEdit = false
       this.getWorks()

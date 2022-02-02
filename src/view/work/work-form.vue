@@ -122,32 +122,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.el-divider--horizontal {
-  margin: 0;
-}
-
-.container {
-  .title {
-    height: 59px;
-    line-height: 59px;
-    color: $parent-title-color;
-    font-size: 16px;
-    font-weight: 500;
-    text-indent: 40px;
-
-    .back {
-      float: right;
-      margin-right: 40px;
-      cursor: pointer;
-    }
-  }
-
-  .wrap {
-    padding: 20px;
-  }
-
-  .submit {
-    float: left;
-  }
+.wrap {
+  padding: 20px;
 }
 </style>

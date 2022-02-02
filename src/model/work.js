@@ -32,10 +32,11 @@ class Work {
     return res
   }
 
-  async getWorks(page = 0, count = 10) {
+  async getWorks(page = 0, count = 10, title) {
     return get('cms/work', {
       page,
       count,
+      title,
     })
   }
 }
