@@ -12,10 +12,12 @@ import activityConfig from './activity'
 import bookConfig from './book' // 引入图书管理路由文件
 import pluginsConfig from './plugin'
 import workConfig from './work'
+import tagConfig from './tag'
 
 // eslint-disable-next-line import/no-mutable-exports
 let homeRouter = [
   workConfig,
+  tagConfig,
   {
     title: '林间有风',
     type: 'view',

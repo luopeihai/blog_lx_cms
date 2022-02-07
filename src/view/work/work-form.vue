@@ -30,6 +30,20 @@
             />
             <el-input type="hidden" v-model="form.pics" />
           </el-form-item>
+          <el-form-item label="标签" prop="tags">
+            <el-select
+              v-model="form.tags"
+              multiple
+              filterable
+              remote
+              reserve-keyword
+              placeholder="请输入关键词"
+              :remote-method="getTags"
+              :loading="selectLoading"
+            >
+              <el-option v-for="item in options" :key="item.id" :label="item.title" :value="item.id"> </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="描述" prop="description">
             <el-input size="medium" type="textarea" :rows="4" placeholder="请输入简介" v-model="form.description">
             </el-input>
@@ -46,6 +60,7 @@
 
 <script>
 import work from '@/model/work'
+import tag from '@/model/tag'
 import UploadImgs from '@/component/base/upload-image'
 import Utils from '@/lin/util/util'
 
@@ -59,17 +74,21 @@ export default {
   data() {
     return {
       loading: false,
+      selectLoading: false,
+      options: [],
       form: {
         title: '',
         description: '',
         cover: '',
         pics: '',
+        tags: '',
       },
       formRules: {
         title: [{ trigger: 'blur', required: true }],
         description: [{ trigger: 'blur', required: true }],
         cover: [{ trigger: 'blur', required: true }],
         pics: [{ trigger: 'blur', required: true }],
+        tags: [{ trigger: 'blur', required: true }],
       },
       rules: {
         minWidth: 10,
@@ -81,10 +100,14 @@ export default {
     }
   },
   async mounted() {
+    await this.getTags('')
     if (this.editID) {
       this.loading = true
       const res = await work.getWork(this.editID)
-      this.form = res
+      this.form = {
+        ...res,
+        tags: res.tags.map(item => item.id),
+      }
       if (res.cover) {
         this.initCoverData = [{ display: res.cover }]
       }
@@ -109,6 +132,12 @@ export default {
           }
         }
       })
+    },
+    async getTags(query) {
+      this.selectLoading = true
+      const tags = await tag.getTags(0, 100, query)
+      this.options = tags.items
+      this.selectLoading = false
     },
     // 重置表单
     resetForm(formName) {

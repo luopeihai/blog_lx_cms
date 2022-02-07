@@ -1,8 +1,7 @@
 <template>
   <div>
-    <!-- 列表页面 -->
     <div class="container" v-if="!showEdit">
-      <div class="header"><div class="title">作品列表</div></div>
+      <div class="header"><div class="title">标签列表</div></div>
       <el-form ref="form" :inline="true" :rules="searchRules" :model="search" @submit.native.prevent>
         <el-form-item label="标题" prop="title">
           <el-input size="medium" v-model="search.title" placeholder="请输入标题内容"></el-input>
@@ -15,24 +14,11 @@
       <el-table stripe v-loading="loading" :data="tableData">
         <el-table-column prop="id" label="id" width="100"></el-table-column>
         <el-table-column :show-overflow-tooltip="true" prop="title" label="标题"></el-table-column>
-        <el-table-column prop="cover" label="封面图">
-          <template v-if="scope.row.cover" slot-scope="scope">
-            <img class="display_img" :src="scope.row.cover" :alt="scope.row.cover" />
-          </template>
-        </el-table-column>
-        <el-table-column prop="tags" label="标签">
-          <template slot-scope="scope">
-            <template v-for="(item, index) in scope.row.tags">
-              <el-tag closable class="tags" :key="index">{{ item.title }}</el-tag>
-            </template>
-          </template>
-        </el-table-column>
-        <el-table-column prop="create_time" label="创建时间"></el-table-column>
         <el-table-column fixed="right" width="150" label="操作">
           <template slot-scope="scope">
             <el-button @click.prevent="handleEdit(scope.row)" type="primary" plain size="mini">编辑</el-button>
             <el-button
-              v-permission="{ permission: ['删除作品'], type: 'disabled' }"
+              v-permission="{ permission: ['删除标签'], type: 'disabled' }"
               @click.prevent="handleDelete(scope.row)"
               type="danger"
               size="mini"
@@ -55,17 +41,17 @@
       </div>
     </div>
     <!-- 编辑页面 -->
-    <work-modify v-else @editClose="editClose" :editID="editID"></work-modify>
+    <tag-modify v-else @editClose="editClose" :editID="editID"></tag-modify>
   </div>
 </template>
 
 <script>
-import work from '@/model/work'
-import WorkModify from './work-modify'
+import tag from '@/model/tag'
+import TagModify from './tag-modify'
 
 export default {
   components: {
-    WorkModify,
+    TagModify,
   },
   data() {
     return {
@@ -85,31 +71,31 @@ export default {
   },
   async created() {
     this.loading = true
-    await this.getWorks()
+    await this.getData()
     this.loading = false
   },
   methods: {
     async handleCurrentChange(val) {
       this.currentPage = val
       this.loading = true
-      this.getWorks()
+      this.getData()
       this.loading = false
     },
     async onSubmit(formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
-          this.getWorks()
+          this.getData()
         }
       })
     },
-    async getWorks() {
+    async getData() {
       try {
         const page = this.currentPage - 1
         const count = this.pageCount
         const { title } = this.search
-        const { items = [], total = 0 } = await work.getWorks(page, count, title)
-        this.tableData = items
-        this.totalNums = total
+        const data = await tag.getTags(page, count, title)
+        this.tableData = data.items
+        this.totalNums = data.total
       } catch (error) {
         if (error.code === 10020) {
           this.tableData = []
@@ -121,14 +107,14 @@ export default {
       this.editID = val.id
     },
     handleDelete(val) {
-      this.$confirm('此操作将永久删除该作品, 是否继续?', '提示', {
+      this.$confirm('此操作将永久删除该标签, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(async () => {
-        const res = await work.deleteWork(val.id)
+        const res = await tag.deleteTag(val.id)
         if (res.code < window.MAX_SUCCESS_CODE) {
-          this.getWorks()
+          this.getData()
           this.$message({
             type: 'success',
             message: `${res.message}`,
@@ -138,7 +124,7 @@ export default {
     },
     editClose() {
       this.showEdit = false
-      this.getWorks()
+      this.getData()
     },
   },
 }
@@ -161,17 +147,11 @@ export default {
       font-weight: 500;
     }
   }
-  .display_img {
-    width: 100px;
-  }
 
   .pagination {
     display: flex;
     justify-content: flex-end;
     margin: 20px;
-  }
-  .tags {
-    margin-bottom: 10px;
   }
 }
 </style>
