@@ -2,7 +2,9 @@
   <div class="login">
     <div class="team-name hidden-sm-and-down"><img src="@/assets/image/login/team-name.png" alt="logo" /></div>
     <div class="form-box" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0)">
-      <div class="title"><h1 title="Lin">Lin CMS</h1></div>
+      <div class="title">
+        <h1 title="Lin">Lin CMS</h1>
+      </div>
       <form class="login-form" autocomplete="off" @submit.prevent="throttleLogin()">
         <div class="form-item nickname">
           <span class="icon account-icon"></span>
@@ -48,11 +50,13 @@ export default {
       const { username, password, captcha } = this.form
       try {
         this.loading = true
-        await User.getToken(username, password, captcha, this.tag)
-        await this.getInformation()
-        this.loading = false
-        this.$router.push('/about')
-        this.$message.success('登录成功')
+        const isSuccess = await User.getToken(username, password, captcha, this.tag)
+        if (isSuccess) {
+          await this.getInformation()
+          this.loading = false
+          this.$router.push('/about')
+          this.$message.success('登录成功')
+        }
       } catch (e) {
         this.loading = false
         console.log(e)
@@ -62,9 +66,11 @@ export default {
       axios({
         method: 'POST',
         url: 'cms/user/captcha',
-      }).then(result => {
-        this.tag = result.tag
-        this.captchaImage = result.image
+      }).then(({ isSuccess, data }) => {
+        if (isSuccess && data) {
+          this.tag = data.tag
+          this.captchaImage = data.image
+        }
       })
     },
     async getInformation() {

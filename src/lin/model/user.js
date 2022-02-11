@@ -24,7 +24,7 @@ export default class User {
    * @param { String } tag 验证码签名
    */
   static async getToken(username, password, captcha, tag) {
-    const tokens = await _axios({
+    const { isSuccess, data } = await _axios({
       url: 'cms/user/login',
       method: 'POST',
       data: {
@@ -36,8 +36,11 @@ export default class User {
         tag,
       },
     })
-    saveTokens(tokens.access_token, tokens.refresh_token)
-    return tokens
+    if (isSuccess) {
+      const { access_token, refresh_token } = data
+      saveTokens(access_token, refresh_token)
+    }
+    return isSuccess
   }
 
   /**
@@ -53,9 +56,12 @@ export default class User {
    * 获取当前用户信息和所拥有的权限
    */
   static async getPermissions() {
-    const info = await get('cms/user/permissions')
+    const { isSuccess, data } = await get('cms/user/permissions')
     const storeUser = store.getters.user === null ? {} : store.getters.user
-    return Object.assign({ ...storeUser }, info)
+    if (isSuccess) {
+      return Object.assign({ ...storeUser }, data)
+    }
+    return storeUser
   }
 
   /**

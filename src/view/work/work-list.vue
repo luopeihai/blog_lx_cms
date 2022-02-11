@@ -2,7 +2,9 @@
   <div>
     <!-- 列表页面 -->
     <div class="container" v-if="!showEdit">
-      <div class="header"><div class="title">作品列表</div></div>
+      <div class="header">
+        <div class="title">作品列表</div>
+      </div>
       <el-form ref="form" :inline="true" :rules="searchRules" :model="search" @submit.native.prevent>
         <el-form-item label="标题" prop="title">
           <el-input size="medium" v-model="search.title" placeholder="请输入标题内容"></el-input>
@@ -13,21 +15,20 @@
       </el-form>
       <!-- 表格 -->
       <el-table stripe v-loading="loading" :data="tableData">
-        <el-table-column prop="id" label="id" width="100"></el-table-column>
         <el-table-column :show-overflow-tooltip="true" prop="title" label="标题"></el-table-column>
         <el-table-column prop="cover" label="封面图">
           <template v-if="scope.row.cover" slot-scope="scope">
             <img class="display_img" :src="scope.row.cover" :alt="scope.row.cover" />
           </template>
         </el-table-column>
-        <el-table-column prop="tags" label="标签">
+        <el-table-column prop="tags" label="标签" min-width="250">
           <template slot-scope="scope">
-            <template v-for="(item, index) in scope.row.tags">
-              <el-tag closable class="tags" :key="index">{{ item.title }}</el-tag>
-            </template>
+            <el-tag :key="tag.id" class="tags" v-for="tag in scope.row.tags">
+              {{ tag.title }}
+            </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="create_time" label="创建时间"></el-table-column>
+        <el-table-column prop="create_time" min-width="150" label="创建时间"></el-table-column>
         <el-table-column fixed="right" width="150" label="操作">
           <template slot-scope="scope">
             <el-button @click.prevent="handleEdit(scope.row)" type="primary" plain size="mini">编辑</el-button>
@@ -104,12 +105,15 @@ export default {
     },
     async getWorks() {
       try {
-        const page = this.currentPage - 1
+        const page = this.currentPage > 1 ? this.currentPage - 1 : 0
         const count = this.pageCount
         const { title } = this.search
-        const { items = [], total = 0 } = await work.getWorks(page, count, title)
-        this.tableData = items
-        this.totalNums = total
+        const { isSuccess, data } = await work.getWorks(page, count, title)
+        if (isSuccess) {
+          const { items = [], total = 0 } = data
+          this.tableData = items
+          this.totalNums = total
+        }
       } catch (error) {
         if (error.code === 10020) {
           this.tableData = []
@@ -126,13 +130,13 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(async () => {
-        const res = await work.deleteWork(val.id)
-        if (res.code < window.MAX_SUCCESS_CODE) {
+        const { isSuccess, message } = await work.deleteWork(val.id)
+        this.$message({
+          type: isSuccess ? 'success' : 'error',
+          message,
+        })
+        if (isSuccess) {
           this.getWorks()
-          this.$message({
-            type: 'success',
-            message: `${res.message}`,
-          })
         }
       })
     },
@@ -171,7 +175,11 @@ export default {
     margin: 20px;
   }
   .tags {
+    margin-left: 5px;
     margin-bottom: 10px;
+    &:first-child {
+      margin-left: 0px;
+    }
   }
 }
 </style>

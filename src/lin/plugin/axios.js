@@ -143,11 +143,13 @@ _axios.interceptors.response.use(
         const cache = {}
         if (cache.url !== url) {
           cache.url = url
-          const refreshResult = await _axios('cms/user/refresh')
-          saveAccessToken(refreshResult.access_token)
-          // 将上次失败请求重发
-          const result = await _axios(res.config)
-          return resolve(result)
+          const { isSuccess, data } = await _axios('cms/user/refresh')
+          if (isSuccess) {
+            saveAccessToken(data.access_token)
+            // 将上次失败请求重发
+            const result = await _axios(res.config)
+            return resolve(result)
+          }
         }
       }
       // 第一种情况：默认直接提示后端返回的异常信息；特殊情况：如果本次请求添加了 handleError: true，用户自己try catch，框架不做处理

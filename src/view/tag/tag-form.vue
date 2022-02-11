@@ -47,8 +47,11 @@ export default {
   async mounted() {
     if (this.editID) {
       this.loading = true
-      const res = await tag.getTag(this.editID)
-      this.form = res
+      const { isSuccess, data } = await tag.getTag(this.editID)
+      if (isSuccess) {
+        this.form = data
+      }
+
       this.loading = false
     }
   },
@@ -56,9 +59,14 @@ export default {
     async submitForm(formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
-          const res = this.editID ? await tag.editTag(this.editID, this.form) : await tag.createTag(this.form)
-          if (res.code < window.MAX_SUCCESS_CODE) {
-            this.$message.success(`${res.message}`)
+          const { isSuccess, message } = this.editID
+            ? await tag.editTag(this.editID, this.form)
+            : await tag.createTag(this.form)
+          this.$message({
+            type: isSuccess ? 'success' : 'error',
+            message,
+          })
+          if (isSuccess) {
             this.$emit('editClose')
           }
         }

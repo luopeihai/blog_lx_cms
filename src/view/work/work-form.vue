@@ -103,19 +103,22 @@ export default {
     await this.getTags('')
     if (this.editID) {
       this.loading = true
-      const res = await work.getWork(this.editID)
-      this.form = {
-        ...res,
-        tags: res.tags.map(item => item.id),
+      const { isSuccess, data } = await work.getWork(this.editID)
+      if (isSuccess) {
+        this.form = {
+          ...data,
+          tags: data.tags.map(item => item.id),
+        }
+        if (data.cover) {
+          this.initCoverData = [{ display: data.cover }]
+        }
+        if (data.pics) {
+          this.initPicsData = data.pics.split(',').map(item => ({
+            display: item,
+          }))
+        }
       }
-      if (res.cover) {
-        this.initCoverData = [{ display: res.cover }]
-      }
-      if (res.pics) {
-        this.initPicsData = res.pics.split(',').map(item => ({
-          display: item,
-        }))
-      }
+
       this.loading = false
     }
   },
@@ -125,9 +128,14 @@ export default {
       this.form.pics = await Utils.getImages(this.$refs.uploadPicsEle)
       this.$refs[formName].validate(async valid => {
         if (valid) {
-          const res = this.editID ? await work.editWork(this.editID, this.form) : await work.createWork(this.form)
-          if (res.code < window.MAX_SUCCESS_CODE) {
-            this.$message.success(`${res.message}`)
+          const { isSuccess, message } = this.editID
+            ? await work.editWork(this.editID, this.form)
+            : await work.createWork(this.form)
+          this.$message({
+            type: isSuccess ? 'success' : 'error',
+            message,
+          })
+          if (isSuccess) {
             this.$emit('editClose')
           }
         }
@@ -135,9 +143,11 @@ export default {
     },
     async getTags(query) {
       this.selectLoading = true
-      const tags = await tag.getTags(0, 100, query)
-      this.options = tags.items
-      this.selectLoading = false
+      const { isSuccess, data } = await tag.getTags(0, 100, query)
+      if (isSuccess) {
+        this.options = data.items
+        this.selectLoading = false
+      }
     },
     // 重置表单
     resetForm(formName) {

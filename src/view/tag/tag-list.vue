@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="container" v-if="!showEdit">
-      <div class="header"><div class="title">标签列表</div></div>
+      <div class="header">
+        <div class="title">标签列表</div>
+      </div>
       <el-form ref="form" :inline="true" :rules="searchRules" :model="search" @submit.native.prevent>
         <el-form-item label="标题" prop="title">
           <el-input size="medium" v-model="search.title" placeholder="请输入标题内容"></el-input>
@@ -14,6 +16,7 @@
       <el-table stripe v-loading="loading" :data="tableData">
         <el-table-column prop="id" label="id" width="100"></el-table-column>
         <el-table-column :show-overflow-tooltip="true" prop="title" label="标题"></el-table-column>
+        <el-table-column prop="create_time" min-width="150" label="创建时间"></el-table-column>
         <el-table-column fixed="right" width="150" label="操作">
           <template slot-scope="scope">
             <el-button @click.prevent="handleEdit(scope.row)" type="primary" plain size="mini">编辑</el-button>
@@ -90,12 +93,14 @@ export default {
     },
     async getData() {
       try {
-        const page = this.currentPage - 1
+        const page = this.currentPage > 1 ? this.currentPage - 1 : 0
         const count = this.pageCount
         const { title } = this.search
-        const data = await tag.getTags(page, count, title)
-        this.tableData = data.items
-        this.totalNums = data.total
+        const { data, isSuccess } = await tag.getTags(page, count, title)
+        if (isSuccess) {
+          this.tableData = data.items
+          this.totalNums = data.total
+        }
       } catch (error) {
         if (error.code === 10020) {
           this.tableData = []
@@ -112,13 +117,13 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(async () => {
-        const res = await tag.deleteTag(val.id)
-        if (res.code < window.MAX_SUCCESS_CODE) {
+        const { isSuccess, message } = await tag.deleteTag(val.id)
+        this.$message({
+          type: isSuccess ? 'success' : 'error',
+          message,
+        })
+        if (isSuccess) {
           this.getData()
-          this.$message({
-            type: 'success',
-            message: `${res.message}`,
-          })
         }
       })
     },
