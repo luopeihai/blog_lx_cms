@@ -1,25 +1,12 @@
 import Utils from '@/lin/util/util'
-import adminConfig from './admin'
-import staticsConfig from './statics'
-import bannerConfig from './banner'
-import categoryConfig from './category'
-import gridCategoryConfig from './grid-categroy'
-import specConfig from './spec'
-import spuConfig from './spu'
-import skuConfig from './sku'
-import themeConfig from './theme'
-import activityConfig from './activity'
-import bookConfig from './book' // 引入图书管理路由文件
 import pluginsConfig from './plugin'
 import workConfig from './work'
 import tagConfig from './tag'
 
 // eslint-disable-next-line import/no-mutable-exports
 let homeRouter = [
-  workConfig,
-  tagConfig,
   {
-    title: '林间有风',
+    title: '首页',
     type: 'view',
     name: Symbol('about'),
     route: '/about',
@@ -28,17 +15,19 @@ let homeRouter = [
     icon: 'iconfont icon-iconset0103',
     order: 1,
   },
-  {
-    title: '日志管理',
-    type: 'view',
-    name: Symbol('log'),
-    route: '/log',
-    filePath: 'view/log/log.vue',
-    inNav: true,
-    icon: 'iconfont icon-rizhiguanli',
-    order: 2,
-    permission: ['查询所有日志'],
-  },
+  tagConfig,
+  workConfig,
+  // {
+  //   title: '日志管理',
+  //   type: 'view',
+  //   name: Symbol('log'),
+  //   route: '/log',
+  //   filePath: 'view/log/log.vue',
+  //   inNav: true,
+  //   icon: 'iconfont icon-rizhiguanli',
+  //   order: 2,
+  //   permission: ['查询所有日志'],
+  // },
   {
     title: '个人中心',
     type: 'view',
@@ -57,17 +46,17 @@ let homeRouter = [
     inNav: false,
     icon: 'iconfont icon-rizhiguanli',
   },
-  staticsConfig,
-  bannerConfig,
-  categoryConfig,
-  gridCategoryConfig,
-  specConfig,
-  spuConfig,
-  skuConfig,
-  themeConfig,
-  activityConfig,
-  bookConfig,
-  adminConfig,
+  // staticsConfig,
+  // bannerConfig,
+  // categoryConfig,
+  // gridCategoryConfig,
+  // specConfig,
+  // spuConfig,
+  // skuConfig,
+  // themeConfig,
+  // activityConfig,
+  // bookConfig,
+  // adminConfig,
 ]
 
 const plugins = [...pluginsConfig]

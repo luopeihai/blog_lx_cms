@@ -5,7 +5,7 @@ const workRouter = {
   type: 'folder', // 类型: folder, tab, view
   icon: 'iconfont icon-tushuguanli',
   filePath: 'view/work/', // 文件路径
-  order: null,
+  order: 3,
   inNav: true,
   children: [
     {

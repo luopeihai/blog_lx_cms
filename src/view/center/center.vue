@@ -126,9 +126,10 @@ export default {
       this.$refs[formName].validate(async valid => {
         // eslint-disable-line
         if (valid) {
-          const res = await User.updatePassword(this.form)
-          if (res.code < window.MAX_SUCCESS_CODE) {
-            this.$message.success(`${res.message}`)
+          const { isSuccess, massage } = await User.updatePassword(this.form)
+
+          if (isSuccess) {
+            this.$message.success(massage)
             this.resetForm(formName)
             this.dialogFormVisible = false
             setTimeout(() => {

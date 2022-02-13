@@ -3,9 +3,9 @@ const tagRouter = {
   name: null,
   title: '标签管理',
   type: 'folder', // 类型: folder, tab, view
-  icon: 'iconfont icon-tushuguanli',
+  icon: 'el-icon-s-goods',
   filePath: 'view/tag/', // 文件路径
-  order: null,
+  order: 2,
   inNav: true,
   children: [
     {
@@ -15,7 +15,7 @@ const tagRouter = {
       route: '/tag/list',
       filePath: 'view/tag/tag-list.vue',
       inNav: true,
-      icon: 'iconfont icon-tushuguanli',
+      icon: 'el-icon-s-goods',
     },
     {
       title: '标签添加',

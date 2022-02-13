@@ -8,9 +8,8 @@
         <div class="user-info">
           <div class="avatar" title="点击修改头像">
             <img :src="user.avatar || defaultAvatar" alt="头像" />
-            <label class="mask">
+            <label class="mask" @click="goToCenter">
               <i class="iconfont icon-icon-test" style="font-size: 20px;"></i>
-              <input ref="avatarInput" type="file" accept="image/*" @change="fileChange" />
             </label>
           </div>
           <div class="text">
@@ -198,104 +197,6 @@ export default {
   },
   methods: {
     ...mapActions(['loginOut', 'setUserAndState']),
-    fileChange(evt) {
-      if (evt.target.files.length !== 1) {
-        return
-      }
-      const imgFile = evt.target.files[0]
-      // 验证文件大小是否符合要求, 不大于 5M
-      if (imgFile.size > 1024 * 1024 * 5) {
-        this.$message.error('文件过大超过5M')
-        // 清空输入框
-        this.clearFileInput(this.$refs.avatarInput)
-        return
-      }
-
-      // 验证图像是否符合要求
-      const imgSrc = window.URL.createObjectURL(imgFile)
-      const image = new Image()
-      image.src = imgSrc
-      image.onload = () => {
-        const w = image.width
-        const h = image.height
-        if (w < 50) {
-          this.$message.error('图像宽度过小, 请选择大于50px的图像')
-          // 清空输入框
-          this.clearFileInput(this.$refs.avatarInput)
-          return
-        }
-        if (h < 50) {
-          this.$message.error('图像高度过小, 请选择大于50px的图像')
-          // 清空输入框
-          this.clearFileInput(this.$refs.avatarInput)
-          return
-        }
-        // 验证通过, 打开裁剪框
-        this.cropImg = imgSrc
-        this.cropVisible = true
-        if (this.$refs.croppa) {
-          this.$refs.croppa.refresh()
-        }
-      }
-      image.onerror = () => {
-        this.$message.error('获取本地图片出现错误, 请重试')
-        // 清空输入框
-        this.clearFileInput(this.$refs.avatarInput)
-      }
-    },
-    async handleCrop() {
-      // 获取裁剪数据
-      const blob = await this.$refs.croppa.promisedBlob('image/jpeg', 0.8)
-      // 构造为文件对象
-      const file = new File([blob], 'avatar.jpg', {
-        type: 'image/jpeg',
-      })
-
-      return this.$axios({
-        method: 'post',
-        url: '/cms/file',
-        data: {
-          file,
-        },
-      }).then(res => {
-        // 清空输入框
-        this.clearFileInput(this.$refs.avatarInput)
-        if (!Array.isArray(res) || res.length !== 1) {
-          this.$message.error('头像上传失败, 请重试')
-          return false
-        }
-        // TODO: 错误码处理
-        // if (res.code === 10110) {
-        //   throw new Error('文件体积过大')
-        // }
-        return this.$axios({
-          method: 'put',
-          url: '/cms/user',
-          data: {
-            avatar: res[0].path,
-          },
-        })
-          .then(putRes => {
-            // eslint-disable-line
-            if (putRes.code < window.MAX_SUCCESS_CODE) {
-              this.$message({
-                type: 'success',
-                message: '更新头像成功',
-              })
-              this.cropVisible = false
-              // 触发重新获取用户信息
-              return User.getInformation()
-            }
-            return Promise.reject(new Error('更新头像失败'))
-          })
-          .then(infoRes => {
-            // eslint-disable-line
-            // 尝试获取当前用户信息
-            const user = infoRes
-            this.setUserAndState(user)
-          })
-      })
-    },
     changeNickname() {
       this.nicknameChanged = true
       setTimeout(() => {
