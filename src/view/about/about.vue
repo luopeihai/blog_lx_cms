@@ -54,12 +54,18 @@
           /></div>
       </div>
     </div> -->
-    <div class="information"></div>
+    <div class="information">
+      <ip-list></ip-list>
+    </div>
   </div>
 </template>
-
 <script>
+import IpList from './ip-list.vue'
+
 export default {
+  components: {
+    IpList,
+  },
   data() {
     return {}
   },
