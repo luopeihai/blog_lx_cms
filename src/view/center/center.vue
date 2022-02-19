@@ -127,9 +127,8 @@ export default {
         // eslint-disable-line
         if (valid) {
           const { isSuccess, massage } = await User.updatePassword(this.form)
-
           if (isSuccess) {
-            this.$message.success(massage)
+            this.$message.success(massage || '密码修改成功')
             this.resetForm(formName)
             this.dialogFormVisible = false
             setTimeout(() => {

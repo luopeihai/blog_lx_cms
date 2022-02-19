@@ -25,11 +25,11 @@ import 'element-ui/lib/theme-chalk/display.css'
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
-Vue.use(LinNotify, {
-  reconnection: true,
-  reconnectionAttempts: 5,
-  reconnectionDelay: 3000,
-})
+// Vue.use(LinNotify, {
+//   reconnection: true,
+//   reconnectionAttempts: 5,
+//   reconnectionDelay: 3000,
+// })
 
 Vue.component(CollapseTransition.name, CollapseTransition)
 
