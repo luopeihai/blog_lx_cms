@@ -1,3 +1,4 @@
-import custom from '@/plugin/custom/stage-config'
+// import custom from '@/plugin/custom/stage-config'
 
-export default [custom]
+// export default [custom]
+export default []
