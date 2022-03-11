@@ -46,8 +46,7 @@
               <el-input size="medium" v-model="form.sign" placeholder="请填写签名"></el-input>
             </el-form-item>
             <el-form-item label="自我介绍" prop="introduce">
-              <el-input size="medium" type="textarea" :rows="4" placeholder="请填写自我介绍" v-model="form.introduce">
-              </el-input>
+              <tinymce @change="tinymceChange" :defaultContent="form.introduce" />
             </el-form-item>
             <el-form-item class="submit">
               <el-button type="primary" @click="submitForm('form')">保 存</el-button>
@@ -103,6 +102,7 @@ import 'vue-croppa/dist/vue-croppa.css'
 import defaultAvatar from '@/assets/image/user/user.png'
 import UploadImgs from '@/component/base/upload-image'
 import Utils from '@/lin/util/util'
+import Tinymce from '@/component/base/tinymce'
 
 Vue.use(Croppa)
 
@@ -111,7 +111,7 @@ const height = 150
 
 export default {
   name: 'center',
-  components: { UploadImgs },
+  components: { UploadImgs, Tinymce },
   data() {
     return {
       formLoading: false,
@@ -172,6 +172,9 @@ export default {
   },
   methods: {
     ...mapActions(['loginOut', 'setUserAndState']),
+    tinymceChange(val) {
+      this.form.introduce = val
+    },
     fileChange(evt) {
       if (evt.target.files.length !== 1) {
         return
