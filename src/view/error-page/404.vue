@@ -6,18 +6,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getCurrentInstance, onMounted } from 'vue'
-
 export default {
-  setup() {
-    onMounted(() => {
-      const headerHeight = 72
-      const { clientHeight } = document.body
-
-      const ctx = getCurrentInstance()
-      ctx.refs.container.style.height = `${clientHeight - headerHeight}px`
-    })
-  }
+  mounted() {
+    const headerHeight = 72
+    const { clientHeight } = document.body
+    this.$refs.container.style.height = `${clientHeight - headerHeight}px`
+  },
 }
 </script>
 

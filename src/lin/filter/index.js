@@ -1,12 +1,13 @@
+import Vue from 'vue'
 import Utils from '../util/util'
 /*
  * 全局的过滤函数
  * */
-export function checkAddZone(num) {
+function checkAddZone(num) {
   return num < 10 ? `0${num.toString()}` : num
 }
 
-export const filters = {
+const globalFilter = {
   filterAddress(value) {
     // 过滤地址
     if (!value) return value
@@ -98,3 +99,8 @@ export const filters = {
     return Utils.cutString(value, len)
   },
 }
+
+// 全局过滤器
+Object.keys(globalFilter).forEach(k => Vue.filter(k, globalFilter[k]))
+
+export default globalFilter

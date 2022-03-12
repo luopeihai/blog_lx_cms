@@ -2,104 +2,97 @@
   <div>
     <!-- 列表页面 -->
     <div class="container" v-if="!showEdit">
-      <div class="header">
-        <div class="title">图书列表</div>
-      </div>
+      <div class="header"><div class="title">图书列表</div></div>
       <!-- 表格 -->
-      <el-table :data="books" v-loading="loading">
-        <el-table-column type="index" :index="indexMethod" label="序号"></el-table-column>
-        <el-table-column prop="title" label="书名"></el-table-column>
-        <el-table-column prop="author" label="作者"></el-table-column>
-        <el-table-column label="操作" fixed="right" width="275">
-          <template #default="scope">
-            <el-button plain size="mini" type="primary" @click="handleEdit(scope.row.id)">编辑</el-button>
-            <el-button
-              plain
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.row.id)"
-              v-permission="{ permission: '删除图书', type: 'disabled' }"
-              >删除</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
+      <lin-table
+        :tableColumn="tableColumn"
+        :tableData="tableData"
+        :operate="operate"
+        @handleEdit="handleEdit"
+        @handleDelete="handleDelete"
+        @row-click="rowClick"
+        v-loading="loading"
+      ></lin-table>
     </div>
 
     <!-- 编辑页面 -->
-    <book-modify v-else @editClose="editClose" :editBookId="editBookId"></book-modify>
+    <book-modify v-else @editClose="editClose" :editBookID="editBookID"></book-modify>
   </div>
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
-import { ElMessageBox, ElMessage } from 'element-plus'
-import bookModel from '@/model/book'
-import BookModify from './book'
+import book from '@/model/book'
+import LinTable from '@/component/base/table/lin-table'
+import BookModify from './book-modify'
 
 export default {
   components: {
+    LinTable,
     BookModify,
   },
-  setup() {
-    const books = ref([])
-    const editBookId = ref(1)
-    const loading = ref(false)
-    const showEdit = ref(false)
-
-    onMounted(() => {
-      getBooks()
-    })
-
-    const getBooks = async () => {
+  data() {
+    return {
+      tableColumn: [
+        { prop: 'title', label: '书名' },
+        { prop: 'author', label: '作者' },
+      ],
+      tableData: [],
+      operate: [],
+      showEdit: false,
+      editBookID: 1,
+    }
+  },
+  async created() {
+    this.loading = true
+    await this.getBooks()
+    this.operate = [
+      { name: '编辑', func: 'handleEdit', type: 'primary' },
+      {
+        name: '删除',
+        func: 'handleDelete',
+        type: 'danger',
+        permission: '删除图书',
+      },
+    ]
+    this.loading = false
+  },
+  methods: {
+    async getBooks() {
       try {
-        loading.value = true
-        books.value = await bookModel.getBooks()
-        loading.value = false
+        const books = await book.getBooks()
+        this.tableData = books
       } catch (error) {
-        loading.value = false
         if (error.code === 10020) {
-          books.value = []
+          this.tableData = []
         }
       }
-    }
-
-    const handleEdit = id => {
-      showEdit.value = true
-      editBookId.value = id
-    }
-
-    const handleDelete = id => {
-      ElMessageBox.confirm('此操作将永久删除该图书, 是否继续?', '提示', {
+    },
+    handleEdit(val) {
+      console.log('val', val)
+      this.showEdit = true
+      this.editBookID = val.row.id
+    },
+    handleDelete(val) {
+      this.$confirm('此操作将永久删除该图书, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(async () => {
-        const res = await bookModel.deleteBook(id)
+        const res = await book.deleteBook(val.row.id)
         if (res.code < window.MAX_SUCCESS_CODE) {
-          getBooks()
-          ElMessage.success(`${res.message}`)
+          this.getBooks()
+          this.$message({
+            type: 'success',
+            message: `${res.message}`,
+          })
         }
       })
-    }
-
-    const editClose = () => {
-      showEdit.value = false
-      getBooks()
-    }
-
-    const indexMethod = index => index + 1
-
-    return {
-      books,
-      loading,
-      showEdit,
-      editClose,
-      handleEdit,
-      editBookId,
-      indexMethod,
-      handleDelete,
-    }
+    },
+    rowClick() {},
+    editClose() {
+      this.showEdit = false
+      this.getBooks()
+    },
   },
 }
 </script>

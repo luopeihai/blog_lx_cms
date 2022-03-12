@@ -1,39 +1,39 @@
+/* eslint-disable*/
+
 /* Author: https://github.com/nathantsoi/vue-native-websocket */
 import Notify from './notify.vue'
 import Observer from './observer'
 import Emitter from './emitter'
 
 export default {
-  install(app, connection, opts = {}) {
+  install(Vue, connection, opts = {}) {
     if (typeof connection === 'object') {
-      // eslint-disable-next-line no-param-reassign
       opts = connection
-      // eslint-disable-next-line no-param-reassign
       connection = ''
     }
     let observer = null
 
     opts.$setInstance = wsInstance => {
-      app.config.globalProperties.$socket = wsInstance
+      Vue.prototype.$socket = wsInstance
     }
-    app.config.globalProperties.$connect = (connectionUrl = connection, connectionOpts = opts) => {
+    Vue.prototype.$connect = (connectionUrl = connection, connectionOpts = opts) => {
       connectionOpts.$setInstance = opts.$setInstance
       observer = new Observer(connectionUrl, connectionOpts)
-      app.config.globalProperties.$socket = observer.WebSocket
+      Vue.prototype.$socket = observer.WebSocket
     }
 
-    app.config.globalProperties.$disconnect = () => {
-      if (observer?.reconnection) {
+    Vue.prototype.$disconnect = () => {
+      if (observer && observer.reconnection) {
         observer.reconnection = false
       }
-      if (app.config.globalProperties.$socket) {
-        app.config.globalProperties.$socket.close()
-        delete app.config.globalProperties.$socket
+      if (Vue.prototype.$socket) {
+        Vue.prototype.$socket.close()
+        delete Vue.prototype.$socket
       }
     }
     const hasProxy = typeof Proxy !== 'undefined' && typeof Proxy === 'function' && /native code/.test(Proxy.toString())
-    app.component('LinNotify', Notify)
-    app.mixin({
+    Vue.component('LinNotify', Notify)
+    Vue.mixin({
       created() {
         const vm = this
         const { sockets } = this.$options
@@ -70,7 +70,7 @@ export default {
           }
         }
       },
-      beforeUnmount() {
+      beforeDestroy() {
         if (hasProxy) {
           const { sockets } = this.$options
 

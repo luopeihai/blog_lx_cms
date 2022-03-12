@@ -35,13 +35,13 @@ export default class Admin {
     return get('cms/admin/permission')
   }
 
-  static async getAdminUsers({ groupId, count = this.uCount, page = this.uPage }) {
+  static async getAdminUsers({ group_id, count = this.uCount, page = this.uPag }) {
     let res
-    if (groupId) {
+    if (group_id) {
       res = await get('cms/admin/users', {
         count,
         page,
-        group_id: groupId,
+        group_id,
       })
     } else {
       res = await get('cms/admin/users', {
@@ -62,7 +62,7 @@ export default class Admin {
     return this.getAdminUsers({})
   }
 
-  async getGroupsWithPermissions({ count = this.uCount, page = this.uPage }) {
+  async getGroupsWithPermissions({ count = this.uCount, page = this.uPag }) {
     const res = await get('cms/admin/groups', {
       count,
       page,
@@ -90,7 +90,6 @@ export default class Admin {
     return group
   }
 
-  // eslint-disable-next-line camelcase
   static async createOneGroup(name, info, permission_ids) {
     const res = await post('cms/admin/group', {
       name,
@@ -118,7 +117,6 @@ export default class Admin {
     return res
   }
 
-  // eslint-disable-next-line camelcase
   static async updateOneUser(email, group_ids, id) {
     const res = await put(`cms/admin/user/${id}`, {
       email,
@@ -127,7 +125,6 @@ export default class Admin {
     return res
   }
 
-  // eslint-disable-next-line camelcase
   static async dispatchPermissions(group_id, permission_ids) {
     const res = await post('cms/admin/permission/dispatch/batch', {
       group_id,
@@ -136,7 +133,6 @@ export default class Admin {
     return res
   }
 
-  // eslint-disable-next-line camelcase
   static async changePassword(new_password, confirm_password, id) {
     const res = await put(`cms/admin/user/${id}/password`, {
       new_password,
@@ -145,7 +141,6 @@ export default class Admin {
     return res
   }
 
-  // eslint-disable-next-line camelcase
   static async removePermissions(group_id, permission_ids) {
     const res = await post('cms/admin/permission/remove', {
       group_id,

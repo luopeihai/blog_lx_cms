@@ -1,6 +1,6 @@
 <template>
   <div class="nav-title">
-    <a class="item" v-for="(item, index) in titleArr" style="cursor: default" :key="index">
+    <a class="item" v-for="(item, index) in titleArr" style="cursor: default;" :key="index">
       <!-- <i v-if="index===0"
          :class="item.meta.icon"></i> -->
       <p>{{ item }}</p>

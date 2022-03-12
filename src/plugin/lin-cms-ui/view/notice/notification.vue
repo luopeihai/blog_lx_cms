@@ -2,10 +2,8 @@
   <div class="lin-container">
     <div class="lin-title">Notification 通知</div>
     <div class="lin-wrap-ui">
-      <el-card style="margin-bottom: 50px">
-        <template #header>
-          <div><span>基础用法</span></div>
-        </template>
+      <el-card style="margin-bottom:50px;">
+        <div slot="header"><span>基础用法</span></div>
         <el-row>
           <div>
             <template>
@@ -16,14 +14,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
-        <template #header>
-          <div><span>带有倾向性</span></div>
-        </template>
+      <el-card style="margin-bottom:50px;">
+        <div slot="header"><span>带有倾向性</span></div>
         <el-row>
           <div>
             <template>
@@ -34,16 +30,14 @@
             </template>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ type }}</div>
+            <div style="white-space: pre-wrap;">{{ type }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
-        <template #header>
-          <div><span>自定义弹出位置</span></div>
-        </template>
+      <el-card style="margin-bottom:50px;">
+        <div slot="header"><span>自定义弹出位置</span></div>
         <el-row>
           <div>
             <template>
@@ -54,17 +48,15 @@
             </template>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ position }}</div>
+            <div style="white-space: pre-wrap;">{{ position }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
-        <template #header>
-          <div><span>带有偏移</span></div>
-        </template>
+      <el-card style="margin-bottom:50px;">
+        <div slot="header"><span>带有偏移</span></div>
         <el-row>
           <div>
             <template>
@@ -74,15 +66,13 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ offset }}</div>
+            <div style="white-space: pre-wrap;">{{ offset }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
-        <template #header>
-          <div><span>使用 HTML 片段</span></div>
-        </template>
+      <el-card style="margin-bottom:50px;">
+        <div slot="header"><span>使用 HTML 片段</span></div>
         <el-row>
           <div>
             <template>
@@ -92,7 +82,7 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ dangerouslyUseHTMLString }}</div>
+            <div style="white-space: pre-wrap;">{{ dangerouslyUseHTMLString }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>

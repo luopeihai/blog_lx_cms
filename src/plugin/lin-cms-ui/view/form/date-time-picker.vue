@@ -2,7 +2,7 @@
   <div class="lin-container">
     <div class="lin-title">DateTimePicker 日期时间选择器</div>
     <div class="lin-wrap-ui">
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>日期和时间点</span></div>
         <el-row>
           <template>
@@ -30,11 +30,11 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>日期和时间范围</span></div>
         <el-row>
           <div>
@@ -66,13 +66,13 @@
             </template>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ datetimerange }}</div>
+            <div style="white-space: pre-wrap;">{{ datetimerange }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>默认的起始与结束时刻</span></div>
         <el-row>
           <div>
@@ -103,9 +103,9 @@
             </template>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ defaultTime }}</div>
+            <div style="white-space: pre-wrap;">{{ defaultTime }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>

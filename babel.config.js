@@ -1,8 +1,20 @@
+/* eslint-disable comma-dangle */
 module.exports = {
-  presets: [['@vue/cli-plugin-babel/preset']],
+  presets: [
+    [
+      '@vue/app',
+      {
+        useBuiltIns: 'entry',
+      },
+    ],
+  ],
   plugins: [
-    //去除element babel 新版直接手动导入即可
-    '@babel/plugin-proposal-optional-chaining',
-    '@babel/plugin-proposal-nullish-coalescing-operator',
+    [
+      'component',
+      {
+        libraryName: 'element-ui',
+        styleLibraryName: 'theme-chalk',
+      },
+    ],
   ],
 }

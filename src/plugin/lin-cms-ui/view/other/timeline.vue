@@ -2,10 +2,8 @@
   <div class="lin-container">
     <div class="lin-title">Timeline 时间线</div>
     <div class="lin-wrap-ui">
-      <el-card style="margin-bottom: 50px">
-        <template v-slot:header>
-          <div><span>基础用法</span></div>
-        </template>
+      <el-card style="margin-bottom:50px;">
+        <div slot="header"><span>基础用法</span></div>
         <el-row>
           <span class="demonstration"
             >Timeline 可拆分成多个按照时间戳正序或倒序排列的 activity，时间戳是其区分于其他控件的重要特征，使⽤时注意与
@@ -28,14 +26,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
-        <template v-slot:header>
-          <div><span>⾃定义时间戳</span></div>
-        </template>
+      <el-card style="margin-bottom:50px;">
+        <div slot="header"><span>⾃定义节点样式</span></div>
         <el-row>
           <div class="block">
             <el-timeline>
@@ -53,16 +49,14 @@
             </el-timeline>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ diy }}</div>
+            <div style="white-space: pre-wrap;">{{ diy }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
-        <template v-slot:header>
-          <div><span>⾃定义时间戳</span></div>
-        </template>
+      <el-card style="margin-bottom:50px;">
+        <div slot="header"><span>⾃定义时间戳</span></div>
         <el-row>
           <div class="block">
             <el-timeline>
@@ -87,9 +81,9 @@
             </el-timeline>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ placement }}</div>
+            <div style="white-space: pre-wrap;">{{ placement }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
@@ -276,15 +270,15 @@ export default {
   margin-bottom: 20px;
 }
 
-.timeLineCard :v-deep(.el-card__body) {
+.timeLineCard /deep/ .el-card__body {
   padding: 20px;
 }
 
-.timeLineCard :v-deep(.el-card__body h4) {
+.timeLineCard /deep/ .el-card__body h4 {
   margin: 20px 0px;
 }
 
-.timeLineCard :v-deep(.el-card__body) {
+.timeLineCard /deep/ .el-card__body {
   margin: 14px 0px;
 }
 </style>

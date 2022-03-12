@@ -16,7 +16,7 @@ export default {
   mounted() {
     this.init()
   },
-  beforeUnmount() {
+  beforeDestroy() {
     this.destroy()
   },
   methods: {

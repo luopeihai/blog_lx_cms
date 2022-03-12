@@ -2,7 +2,7 @@
   <div class="lin-container">
     <div class="lin-title">TimePicker 时间选择器</div>
     <div class="lin-wrap-ui">
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>固定时间点</span></div>
         <el-row>
           <div>
@@ -20,11 +20,11 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>任意时间点</span></div>
         <el-row>
           <div>
@@ -49,13 +49,13 @@
             </template>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ selectableRange }}</div>
+            <div style="white-space: pre-wrap;">{{ selectableRange }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>固定时间范围</span></div>
         <el-row>
           <div>
@@ -84,14 +84,14 @@
             </template>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ selectStarTime }}</div>
+            <div style="white-space: pre-wrap;">{{ selectStarTime }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>任意时间范围</span></div>
         <el-row>
           <div>
@@ -118,9 +118,9 @@
             </template>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ isRange }}</div>
+            <div style="white-space: pre-wrap;">{{ isRange }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>

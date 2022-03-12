@@ -2,42 +2,42 @@
   <div class="lin-container">
     <div class="lin-title">Icon 图标</div>
     <div class="lin-wrap-ui">
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>方向性图标</span></div>
-        <el-row style="margin-bottom: 10px">
-          <el-col :span="4" v-for="item in iconList1" :key="item" style="margin-bottom: 20px; text-align: center">
+        <el-row style="margin-bottom:10px;">
+          <el-col :span="4" v-for="item in iconList1" :key="item" style="margin-bottom:20px;text-align:center;">
             <l-icon :name="item" :color="color" :width="width" :height="height"></l-icon>
-            <div style="color: #2f4e8c; margin-top: 5px">{{ item }}</div>
+            <div style="color:#2f4e8c;margin-top:5px;">{{ item }}</div>
           </el-col>
         </el-row>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>提示建议性图标</span></div>
-        <el-row style="margin-bottom: 10px">
-          <el-col :span="4" v-for="item in iconList2" :key="item" style="margin-bottom: 20px; text-align: center">
+        <el-row style="margin-bottom:10px;">
+          <el-col :span="4" v-for="item in iconList2" :key="item" style="margin-bottom:20px;text-align:center;">
             <l-icon :name="item" :color="color" :width="width" :height="height"></l-icon>
-            <div style="color: #2f4e8c; margin-top: 5px">{{ item }}</div>
+            <div style="color:#2f4e8c;margin-top:5px;">{{ item }}</div>
           </el-col>
         </el-row>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>编辑类图标</span></div>
-        <el-row style="margin-bottom: 10px">
-          <el-col :span="4" v-for="item in iconList3" :key="item" style="margin-bottom: 20px; text-align: center">
+        <el-row style="margin-bottom:10px;">
+          <el-col :span="4" v-for="item in iconList3" :key="item" style="margin-bottom:20px;text-align:center;">
             <l-icon :name="item" :color="color" :width="width" :height="height"></l-icon>
-            <div style="color: #2f4e8c; margin-top: 5px">{{ item }}</div>
+            <div style="color:#2f4e8c;margin-top:5px;">{{ item }}</div>
           </el-col>
         </el-row>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>网站通用图标</span></div>
-        <el-row style="margin-bottom: 10px">
-          <el-col :span="4" v-for="item in iconList4" :key="item" style="margin-bottom: 20px; text-align: center">
+        <el-row style="margin-bottom:10px;">
+          <el-col :span="4" v-for="item in iconList4" :key="item" style="margin-bottom:20px;text-align:center;">
             <l-icon :name="item" :color="color" :width="width" :height="height"></l-icon>
-            <div style="color: #2f4e8c; margin-top: 5px">{{ item }}</div>
+            <div style="color:#2f4e8c;margin-top:5px;">{{ item }}</div>
           </el-col>
         </el-row>
       </el-card>

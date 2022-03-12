@@ -51,7 +51,9 @@ export function isEmptyObj(data) {
 
 /** 生成随机字符串 */
 export function createId() {
-  return Math.random().toString(36).substring(2)
+  return Math.random()
+    .toString(36)
+    .substring(2)
 }
 
 /**

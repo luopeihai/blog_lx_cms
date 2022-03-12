@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper" @click="showSourceCode">
-    <i class="iconfont icon-daima1" style="font-size: 12px; margin-right: 3px"></i>本页源码
+    <i class="iconfont icon-daima1" style="font-size: 12px;margin-right:3px"></i>本页源码
   </div>
 </template>
 

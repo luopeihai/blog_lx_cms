@@ -2,7 +2,7 @@
   <div class="lin-container">
     <div class="lin-title">Steps 步骤条</div>
     <div class="lin-wrap-ui">
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>基础用法</span></div>
         <el-row>
           <div>
@@ -11,16 +11,16 @@
               <el-step title="步骤 2"></el-step>
               <el-step title="步骤 3"></el-step>
             </el-steps>
-            <el-button style="margin-top: 12px" @click="next">下一步</el-button>
+            <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
           </div>
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>含状态步骤条</span></div>
         <el-row>
           <div>
@@ -31,13 +31,13 @@
             </el-steps>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ title }}</div>
+            <div style="white-space: pre-wrap;">{{ title }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>有描述的步骤条</span></div>
         <el-row>
           <div>
@@ -48,14 +48,14 @@
             </el-steps>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ description }}</div>
+            <div style="white-space: pre-wrap;">{{ description }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>居中的步骤条</span></div>
         <el-row>
           <div>
@@ -69,12 +69,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ alignCenter }}</div>
+            <div style="white-space: pre-wrap;">{{ alignCenter }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>带图标的步骤条</span></div>
         <el-row>
           <div>
@@ -87,16 +87,16 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ icon }}</div>
+            <div style="white-space: pre-wrap;">{{ icon }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>竖式步骤条</span></div>
         <el-row>
           <div>
-            <div style="height: 300px">
+            <div style="height: 300px;">
               <el-steps direction="vertical" :active="1">
                 <el-step title="步骤 1"></el-step>
                 <el-step title="步骤 2"></el-step>
@@ -107,12 +107,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ vertical }}</div>
+            <div style="white-space: pre-wrap;">{{ vertical }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>简洁风格的步骤条</span></div>
         <el-row>
           <div>
@@ -131,7 +131,7 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ simple }}</div>
+            <div style="white-space: pre-wrap;">{{ simple }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>

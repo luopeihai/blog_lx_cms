@@ -2,7 +2,7 @@
   <div class="lin-container">
     <div class="lin-title">Dropdown 下拉菜单</div>
     <div class="lin-wrap-ui">
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>基础用法</span></div>
         <el-row>
           <div>
@@ -20,11 +20,11 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>触发对象</span></div>
         <el-row>
           <div>
@@ -58,13 +58,13 @@
             </el-row>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ splitButton }}</div>
+            <div style="white-space: pre-wrap;">{{ splitButton }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>触发方式</span></div>
         <el-row>
           <div>
@@ -98,14 +98,14 @@
             </el-row>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ trigger }}</div>
+            <div style="white-space: pre-wrap;">{{ trigger }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>菜单隐藏方式</span></div>
         <el-row>
           <div>
@@ -141,12 +141,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ hideOnClick }}</div>
+            <div style="white-space: pre-wrap;">{{ hideOnClick }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>指令事件</span></div>
         <el-row>
           <div>
@@ -164,12 +164,12 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ handleCommandCode }}</div>
+            <div style="white-space: pre-wrap;">{{ handleCommandCode }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>不同尺寸</span></div>
         <el-row>
           <div>
@@ -220,7 +220,7 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ size }}</div>
+            <div style="white-space: pre-wrap;">{{ size }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>

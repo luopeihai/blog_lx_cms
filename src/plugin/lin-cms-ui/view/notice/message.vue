@@ -2,7 +2,7 @@
   <div class="lin-container">
     <div class="lin-title">Message 消息提示</div>
     <div class="lin-wrap-ui">
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>基础用法</span></div>
         <el-row>
           <div>
@@ -14,11 +14,11 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ base }}</div>
+            <div style="white-space: pre-wrap;">{{ base }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>不同状态</span></div>
         <el-row>
           <div>
@@ -30,13 +30,13 @@
             </template>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ type }}</div>
+            <div style="white-space: pre-wrap;">{{ type }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>可关闭</span></div>
         <el-row>
           <div>
@@ -48,14 +48,14 @@
             </template>
           </div>
         </el-row>
-        <el-collapse class="test" style="color: red">
+        <el-collapse class="test" style="color:red;">
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ showClose }}</div>
+            <div style="white-space: pre-wrap;">{{ showClose }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
 
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>文字居中</span></div>
         <el-row>
           <div>
@@ -66,11 +66,11 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ center }}</div>
+            <div style="white-space: pre-wrap;">{{ center }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
-      <el-card style="margin-bottom: 50px">
+      <el-card style="margin-bottom:50px;">
         <div slot="header"><span>使用 HTML 片段</span></div>
         <el-row>
           <div>
@@ -81,7 +81,7 @@
         </el-row>
         <el-collapse>
           <el-collapse-item title="查看代码" name="2">
-            <div style="white-space: pre-wrap">{{ dangerouslyUseHTMLString }}</div>
+            <div style="white-space: pre-wrap;">{{ dangerouslyUseHTMLString }}</div>
           </el-collapse-item>
         </el-collapse>
       </el-card>
