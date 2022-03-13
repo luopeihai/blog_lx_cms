@@ -19,7 +19,7 @@ jobs:
           node-version: '12'
       - run: npm install
       - run: npm run build
-      - run: tar -zcvf dist
+      - run: tar -zcvf release.tgz dist
 
       # 发布 Release
       - name: Create Release
