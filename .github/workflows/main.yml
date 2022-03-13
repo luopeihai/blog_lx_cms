@@ -14,7 +14,9 @@ jobs:
 
       # 打包构建
       - name: Build
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
       - run: npm install
       - run: npm run build
       - run: tar -zcvf dist
