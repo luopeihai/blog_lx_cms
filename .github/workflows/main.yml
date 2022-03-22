@@ -53,6 +53,6 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /var/www/html
+            cd /var/www/test/cms
             sudo wget https://github.com/luopeihai/blog_lx_cms/releases/latest/download/release.tgz -O release.tgz
             sudo tar zxvf release.tgz
