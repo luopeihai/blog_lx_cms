@@ -55,4 +55,4 @@ jobs:
           script: |
             cd /var/www/html
             sudo wget https://github.com/luopeihai/blog_lx_cms/releases/latest/download/release.tgz -O release.tgz
-            tar zxvf release.tgz
+            sudo tar zxvf release.tgz
