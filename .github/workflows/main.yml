@@ -54,5 +54,5 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/html
-            wget https://github.com/luopeihai/blog_lx_cms/releases/latest/download/release.tgz -O release.tgz
+            sudo wget https://github.com/luopeihai/blog_lx_cms/releases/latest/download/release.tgz -O release.tgz
             tar zxvf release.tgz
