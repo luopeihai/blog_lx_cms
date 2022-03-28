@@ -5,7 +5,14 @@
  npm run serve
 ```
 
-## build project
+## build online test project
 ```code
  npm run build
 ```
+
+
+## build online pro project
+```code
+ npm run build:production
+```
+
