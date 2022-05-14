@@ -16,8 +16,7 @@
           :hidden="hidden"
         >
         </lin-notify>
-        <clear-tab></clear-tab>
-        <screenfull /> <user></user>
+        <user></user>
       </div>
     </div>
   </div>
@@ -25,9 +24,7 @@
 
 <script>
 import Breadcrumb from './breadcrumb'
-import Screenfull from './screen-full'
 import User from './user'
-import ClearTab from './clear-tab'
 // import { getToken } from '@/lin/util/token'
 // import store from '@/store'
 
@@ -82,8 +79,6 @@ export default {
   components: {
     Breadcrumb,
     User,
-    Screenfull,
-    ClearTab,
   },
 }
 </script>
