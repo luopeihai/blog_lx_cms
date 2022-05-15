@@ -193,20 +193,20 @@ export default {
       const image = new Image()
       image.src = imgSrc
       image.onload = () => {
-        const w = image.width
-        const h = image.height
-        if (w < 50) {
-          this.$message.error('图像宽度过小, 请选择大于50px的图像')
-          // 清空输入框
-          this.clearFileInput(this.$refs.avatarInput)
-          return
-        }
-        if (h < 50) {
-          this.$message.error('图像高度过小, 请选择大于50px的图像')
-          // 清空输入框
-          this.clearFileInput(this.$refs.avatarInput)
-          return
-        }
+        // const w = image.width
+        // const h = image.height
+        // if (w < 50) {
+        //   this.$message.error('图像宽度过小, 请选择大于50px的图像')
+        //   // 清空输入框
+        //   this.clearFileInput(this.$refs.avatarInput)
+        //   return
+        // }
+        // if (h < 50) {
+        //   this.$message.error('图像高度过小, 请选择大于50px的图像')
+        //   // 清空输入框
+        //   this.clearFileInput(this.$refs.avatarInput)
+        //   return
+        // }
         // 验证通过, 打开裁剪框
         this.cropImg = imgSrc
         this.cropVisible = true
