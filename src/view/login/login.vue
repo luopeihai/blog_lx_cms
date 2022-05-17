@@ -41,7 +41,7 @@ export default {
       tag: null,
       form: {
         username: 'root',
-        password: '123456',
+        password: '389542',
       },
     }
   },

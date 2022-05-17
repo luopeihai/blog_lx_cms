@@ -10,6 +10,12 @@ class IP {
       count,
     })
   }
+
+  async getChart(type) {
+    return get('cms/home/chart', {
+      type,
+    })
+  }
 }
 
 export default new IP()

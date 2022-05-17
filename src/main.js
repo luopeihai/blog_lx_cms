@@ -9,7 +9,6 @@ import '@/lin/plugin'
 import '@/lin/directive'
 
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
-import LinNotify from '@/component/notify'
 import router from '@/router'
 import store from '@/store'
 import App from '@/app.vue'

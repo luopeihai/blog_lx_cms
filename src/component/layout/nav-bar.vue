@@ -4,18 +4,6 @@
       <breadcrumb />
       <!-- 暂时放这里 -->
       <div class="right-info">
-        <lin-notify
-          height="370"
-          @readMessages="readMessages"
-          :trigger="'click'"
-          :messages="messages"
-          @readAll="readAll"
-          @viewAll="viewAll"
-          class="lin-notify"
-          :value="value"
-          :hidden="hidden"
-        >
-        </lin-notify>
         <user></user>
       </div>
     </div>
@@ -84,9 +72,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.lin-notify {
-  margin-right: 20px;
-}
 .app-nav-bar {
   width: 100%;
   height: $navbar-height;
